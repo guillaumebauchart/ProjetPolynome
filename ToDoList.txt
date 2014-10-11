@@ -4,10 +4,20 @@ Forme développée :
 
 - Ajouter/retirer un monome (paramétrer une limite)
 - Ordonner un polynome (plus forte puissance en premier)
-- Factoriser un polynome
+- Factoriser un polynome, trouver racines
+- Intégration, dérivation
+- Composition, décomposition
 
 
 
 Forme factorisée :
 
 - Developper un polynome
+
+
+
+
+
+PGCD
+
+Faulhaber
