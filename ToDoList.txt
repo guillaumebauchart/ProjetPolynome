@@ -1,0 +1,13 @@
+
+
+Forme développée :
+
+- Ajouter/retirer un monome (paramétrer une limite)
+- Ordonner un polynome (plus forte puissance en premier)
+- Factoriser un polynome
+
+
+
+Forme factorisée :
+
+- Developper un polynome

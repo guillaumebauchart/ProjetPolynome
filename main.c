@@ -13,7 +13,7 @@ typedef struct
 typedef struct Monomial Monomial;
 struct Monomial
 {
-    long int exponent;
+    long exponent;
     double coef;
     Monomial *next, *prev;
 };
