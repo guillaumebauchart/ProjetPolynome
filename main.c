@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "complex.h"
-#include "struct.h"
-
+#include "complex\complex.h"
+#include "polynomial\struct.h"
 
 int main()
 {
