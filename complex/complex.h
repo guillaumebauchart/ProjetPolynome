@@ -8,7 +8,7 @@
 // Définie une structure pour nombre Complex, avec partie réelle et partie imaginaire.
 typedef struct
 {
-    double x ;
+    double x;
     double y;
 }Complex;
 

@@ -1,6 +1,8 @@
 #ifndef STRUCT_H_INCLUDED
 #define STRUCT_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
 
 // Définie une structure pour un monome, avec exposant, coefficient, pointeur vers monome suivant et précédent.
 typedef struct Monomial Monomial;
@@ -43,13 +45,14 @@ typedef struct Polynomial
 void initMonomial (Monomial *monomial, long exponent, double coef, Monomial *next, Monomial *prev);
 
 // Initialise les champs d'un polynome développé aux valeurs passées en paramètres.
-void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Monomial *first, Monomial *last, PolynomialDev *next, Polynomial_dev *prev);
+void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev);
 
 // Initialise les champs d'un polynome factorisé aux valeurs passées en paramètres.
 void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, int deg, Polynomial_dev *first, Polynomial_dev *last);
 
 // Initialise les champs d'un polynome aux valeurs passées en paramètres.
 void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev *developed, Polynomial_dev *integrated, Polynomial_dev *derivative, Polynomial_fact *factored);
+
 
 // Affiche un monome.
 void displayMonomial (Monomial monomial);
@@ -61,6 +64,11 @@ void displayPolynomialDev (Polynomial_dev polynomial_dev);
 void displayPolynomialFact (Polynomial_fact polynomial_fact);
 
 
+// Saisie manuelle des valeurs d'un monome.
+void getMonomialFromKeyBoard (Monomial *monomial);
+
+// Saisie manuelle des valeurs d'un polynome developpé.
+void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev);
 
 
 
