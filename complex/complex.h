@@ -16,13 +16,17 @@ typedef struct
 // Affecte les réels x et y au champs x et y du Complex z.
 void setComplexNumber (Complex *z, double x, double y);
 
+// Affiche le nombre complexe z
+void complexDisplay (Complex z);
+
 // Réalise une somme de nombre Complexs.
 Complex complexSum (Complex z1, Complex z2);
 
 // Réalise un produit de nombres Complexs.
 Complex complexMultiplication (Complex z1, Complex z2);
 
-
+// Saisie manuelle d'un nombre complexe.
+void getComplexFromKeyBoard (Complex *z);
 
 
 #endif // COMPLEX_H_INCLUDED

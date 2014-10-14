@@ -1,8 +1,8 @@
-#include "struct.h"
+#include "polynomial.h"
 
 
 // Initialise les champs d'un monome aux valeurs passées en paramètres.
-void initMonomial (Monomial *monomial, long exponent, double coef, Monomial *next, Monomial *prev)
+void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev)
 {
 	monomial->exponent = exponent;
 	monomial->coef = coef;
@@ -31,20 +31,21 @@ void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, int deg, 
 }
 
 // Initialise les champs d'un polynome aux valeurs passées en paramètres
-void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev *developed, Polynomial_dev *integrated, Polynomial_dev *derivative, Polynomial_fact *factored)
+void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev *developed, Polynomial_fact *factored)
 {
 	polynomial->lenght = lenght;
 	polynomial->deg = deg;
 	polynomial->developed = developed;
-	polynomial->integrated = integrated;
-	polynomial->derivative = derivative;
 	polynomial->factored = factored;
+	polynomial->integrated = NULL;
+	polynomial->derivative = NULL;
 }
 
 // Affiche un monome
 void displayMonomial (Monomial monomial)
 {
-	printf("%lfX^%ld ", monomial.coef, monomial.exponent);
+	complexDisplay(monomial.coef);
+	printf("X^%d ", monomial.exponent);
 }
 
 // Affiche un polynome développé
@@ -82,23 +83,17 @@ void displayPolynomialFact (Polynomial_fact polynomial_fact)
 // Saisie manuelle des valeurs d'un monome.
 void getMonomialFromKeyBoard (Monomial *monomial)
 {
-	long exponent;
-	double coef;
-	int saisie;
+	int exponent, saisie;
+	Complex coef;
 
 	do
     {
         printf("Choisissez une valeur pour l'exposent : ");
-        saisie = scanf("%ld", &exponent);
+        saisie = scanf("%d", &exponent);
         fflush(stdin); // On vide la mémoire tampon.
     }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
 
-    do
-    {
-        printf("Choisissez une valeur pour le coefficient : ");
-        saisie = scanf("%lf", &coef);
-        fflush(stdin); // On vide la mémoire tampon.
-    }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
+    getComplexFromKeyBoard (&coef);
 
     initMonomial(monomial, exponent, coef, NULL, NULL);
 }

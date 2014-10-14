@@ -1,18 +1,23 @@
 # depslib dependency file v1.0
-1413067643 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\complex\complex.c
+1413284634 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\complex\complex.c
 	"complex.h"
 
-1413103295 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\complex\complex.h
+1413284472 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\complex\complex.h
 	<stdio.h>
 	<stdlib.h>
 
-1413067840 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
+1413283983 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
 	<stdio.h>
 	<stdlib.h>
 	"complex\complex.h"
-	"polynomial\struct.h"
+	"polynomial\polynomial.h"
 
 1413105895 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\polynomial\struct.h
 	<stdio.h>
 	<stdlib.h>
+
+1413284849 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\polynomial\polynomial.h
+	<stdio.h>
+	<stdlib.h>
+	"../complex/complex.h"
 

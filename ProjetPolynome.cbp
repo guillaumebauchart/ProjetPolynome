@@ -31,9 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="complex/complex.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="complex/complex.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="polynomial/polynomial.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="polynomial/polynomial.h" />
 		<Extensions>
 			<code_completion />
 			<envvars />
