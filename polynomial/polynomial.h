@@ -1,5 +1,5 @@
-#ifndef STRUCT_H_INCLUDED
-#define STRUCT_H_INCLUDED
+#ifndef POLYNOMIAL_H_INCLUDED
+#define POLYNOMIAL_H_INCLUDED
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -67,11 +67,11 @@ void displayPolynomialFact (Polynomial_fact polynomial_fact);
 
 
 // Saisie manuelle des valeurs d'un monome.
-void getMonomialFromKeyBoard (Monomial *monomial);
+void getMonomialFromKeyboard (Monomial *monomial);
 
 // Saisie manuelle des valeurs d'un polynome developpé.
-void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev);
+// void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev);
 
 
 
-#endif // STRUCT_H_INCLUDED
+#endif // POLYNOMIAL_H_INCLUDED

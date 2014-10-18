@@ -14,7 +14,7 @@ typedef struct
 
 
 // Affecte les réels x et y au champs x et y du Complex z.
-void setComplexNumber (Complex *z, double x, double y);
+void complexSet (Complex *z, double x, double y);
 
 // Affiche le nombre complexe z
 void complexDisplay (Complex z);

@@ -81,7 +81,7 @@ void displayPolynomialFact (Polynomial_fact polynomial_fact)
 }
 
 // Saisie manuelle des valeurs d'un monome.
-void getMonomialFromKeyBoard (Monomial *monomial)
+void getMonomialFromKeyboard (Monomial *monomial)
 {
 	int exponent, saisie;
 	Complex coef;
@@ -93,7 +93,8 @@ void getMonomialFromKeyBoard (Monomial *monomial)
         fflush(stdin); // On vide la mémoire tampon.
     }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
 
-    getComplexFromKeyBoard (&coef);
+    getComplexFromKeyBoard(&coef);
+    printf("\n");
 
     initMonomial(monomial, exponent, coef, NULL, NULL);
 }
@@ -102,13 +103,12 @@ void getMonomialFromKeyBoard (Monomial *monomial)
 // Saisie manuelle des valeurs d'un polynome developpé.
 void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev)
 {
-	int i = 0;
-	long lenght;
+	int i = 0, lenght;
 
 	do
     {
         printf("Choisissez une longueur pour le polynome : ");
-        saisie = scanf("%ld", &lenght);
+        saisie = scanf("%d", &lenght);
         fflush(stdin); // On vide la mémoire tampon.
     }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
 

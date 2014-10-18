@@ -7,7 +7,7 @@ Forme développée :
 - Factoriser un polynome, trouver racines
 - Intégration, dérivation
 - Composition, décomposition
-
+- Génération aléatoire
 
 
 Forme factorisée :
@@ -16,6 +16,12 @@ Forme factorisée :
 
 
 
+
+Produit de Polynomes : 
+
+- Exponentation rapide
+- Horner
+- Karatsuba
 
 
 PGCD

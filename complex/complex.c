@@ -2,7 +2,7 @@
 
 
 // Affecte les réels x et y au champs x et y du Complex z.
-void setComplexNumber (Complex *z, double x, double y)
+void complexSet (Complex *z, double x, double y)
 {
     z->x = x;
     z->y = y;
@@ -18,7 +18,7 @@ void complexDisplay (Complex z)
 Complex complexSum (Complex z1, Complex z2)
 {
     Complex z; // On créer un nombre Complex.
-    setComplexNumber(&z, 0, 0); // On l'initialise à 0.
+    complexSet(&z, 0, 0); // On l'initialise à 0.
 
     z.x = z1.x + z2.x; // On additionne les parties réelles.
     z.y = z1.y + z2.y; // On additionne les parties imaginaires.
@@ -30,7 +30,7 @@ Complex complexSum (Complex z1, Complex z2)
 Complex complexMultiplication (Complex z1, Complex z2)
 {
     Complex z; // On créer un nombre Complex.
-    setComplexNumber(&z, 0, 0); // On l'initialise à 0.
+    complexSet(&z, 0, 0); // On l'initialise à 0.
 
     z.x = z1.x * z2.x - z1.y * z2.y; // On regroupe les parties réelles.
     z.y = z1.y * z2.x + z1.x * z2.y; // On regroupe les parties imaginaires.
