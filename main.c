@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "complex\complex.h"
-#include "polynomial\polynomial.h"
-#include "polynomial\operations.h"
+#include "src\complex\complex.h"
+#include "src\monomial\monomial.h"
+#include "src\polynomial\polynomial.h"
+#include "src\polynomial\operations.h"
 
 int main()
 {
@@ -13,11 +14,16 @@ int main()
 	complexDisplay (z);
 	*/
 
-	/*
+    /*
 	Monomial monomial;
 	getMonomialFromKeyboard (&monomial);
 	displayMonomial (monomial);
-	*/
+    printf("\n");
+
+    Polynomial_dev polynomial_dev;
+    */
+
+
 
     /*
 	Complex z1, z2, result1, result2;
@@ -33,6 +39,8 @@ int main()
     */
 
 	/*
+    Monomial monomial
+
 
 	*/
 
