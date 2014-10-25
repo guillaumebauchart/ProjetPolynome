@@ -5,15 +5,7 @@
 #include <stdlib.h>
 
 #include "../complex/complex.h"
-
-// Définie une structure pour un monome, avec exposant, coefficient, pointeur vers monome suivant et précédent.
-typedef struct Monomial Monomial;
-struct Monomial
-{
-    int exponent;
-    Complex coef;
-    Monomial *next, *prev;
-};
+#include "../monomial/monomial.h"
 
 
 // Définie une structure pour un polynome développé, avec longueur, degré, pointeur vers le premier et le dernier polynome de la liste, également vers le polynome suivant et précédent dans le cas où il y aurait une liste de molynomes développés (comme dans la forme factorisée par exemple).
@@ -43,9 +35,6 @@ typedef struct Polynomial
     Polynomial_fact *factored;
 }Polynomial;
 
-// Initialise les champs d'un monome aux valeurs passées en paramètres.
-void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev);
-
 // Initialise les champs d'un polynome développé aux valeurs passées en paramètres.
 void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev);
 
@@ -56,9 +45,6 @@ void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, int deg, 
 void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev *developed, Polynomial_fact *factored);
 
 
-// Affiche un monome.
-void displayMonomial (Monomial monomial);
-
 // Affiche un polynome développé.
 void displayPolynomialDev (Polynomial_dev polynomial_dev);
 
@@ -66,11 +52,12 @@ void displayPolynomialDev (Polynomial_dev polynomial_dev);
 void displayPolynomialFact (Polynomial_fact polynomial_fact);
 
 
-// Saisie manuelle des valeurs d'un monome.
-void getMonomialFromKeyboard (Monomial *monomial);
-
 // Saisie manuelle des valeurs d'un polynome developpé.
 // void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev);
+
+
+// Renvoie le degré d'un polyome développé.
+int getDegrePolynomialDev (Polynomial_dev *polynomial_dev);
 
 
 
