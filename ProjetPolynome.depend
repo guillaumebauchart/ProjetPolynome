@@ -6,13 +6,11 @@
 	<stdio.h>
 	<stdlib.h>
 
-1414278057 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
+1413285702 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
 	<stdio.h>
 	<stdlib.h>
-	"src\complex\complex.h"
-	"src\monomial\monomial.h"
-	"src\polynomial\polynomial.h"
-	"src\polynomial\operations.h"
+	"complex\complex.h"
+	"polynomial\polynomial.h"
 
 1413105895 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\polynomial\struct.h
 	<stdio.h>
@@ -25,27 +23,4 @@
 
 1413286584 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\polynomial\polynomial.c
 	"polynomial.h"
-
-1413892684 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\complex\complex.c
-	"complex.h"
-
-1413892685 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\complex\complex.h
-	<stdio.h>
-	<stdlib.h>
-
-1414267876 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.c
-	"operations.h"
-
-1414276115 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.h
-	"polynomial.h"
-	"../monomial/monomial.h"
-
-1414276219 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.h
-	<stdio.h>
-	<stdlib.h>
-	"../complex/complex.h"
-	"../monomial/monomial.h"
-
-1414278169 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\monomial\monomial.h
-	"../complex/complex.h"
 

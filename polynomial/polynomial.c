@@ -1,6 +1,15 @@
 #include "polynomial.h"
 
 
+// Initialise les champs d'un monome aux valeurs passées en paramètres.
+void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev)
+{
+	monomial->exponent = exponent;
+	monomial->coef = coef;
+	monomial->next = next;
+	monomial->prev = prev;
+}
+
 // Initialise les champs d'un polynome développé aux valeurs passées en paramètres.
 void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev)
 {
@@ -32,6 +41,12 @@ void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev
 	polynomial->derivative = NULL;
 }
 
+// Affiche un monome
+void displayMonomial (Monomial monomial)
+{
+	complexDisplay(monomial.coef);
+	printf("X^%d ", monomial.exponent);
+}
 
 // Affiche un polynome développé
 void displayPolynomialDev (Polynomial_dev polynomial_dev)
@@ -44,7 +59,6 @@ void displayPolynomialDev (Polynomial_dev polynomial_dev)
 	{
 		tmp = tmp->next;
 		displayMonomial(*tmp);
-        printf("\n");
 	}
 }
 
@@ -66,6 +80,24 @@ void displayPolynomialFact (Polynomial_fact polynomial_fact)
 	}
 }
 
+// Saisie manuelle des valeurs d'un monome.
+void getMonomialFromKeyboard (Monomial *monomial)
+{
+	int exponent, saisie;
+	Complex coef;
+
+	do
+    {
+        printf("Choisissez une valeur pour l'exposent : ");
+        saisie = scanf("%d", &exponent);
+        fflush(stdin); // On vide la mémoire tampon.
+    }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
+
+    getComplexFromKeyBoard(&coef);
+    printf("\n");
+
+    initMonomial(monomial, exponent, coef, NULL, NULL);
+}
 
 /* DEV DE LA FONCTION EN COURS
 // Saisie manuelle des valeurs d'un polynome developpé.
@@ -105,10 +137,3 @@ do
     }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
 
 */
-
-
-// Renvoie le degré d'un polyome développé.
-int getDegrePolynomialDev (Polynomial_dev *polynomial_dev)
-{
-    return polynomial_dev->last->exponent;
-}
