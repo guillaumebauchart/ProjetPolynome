@@ -13,7 +13,10 @@ void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *nex
 void displayMonomial (Monomial monomial)
 {
     complexDisplay(monomial.coef);
-    printf("X^%d ", monomial.exponent);
+    if (monomial.exponent != 0)
+    {
+        printf("X^%d", monomial.exponent);
+    }
 }
 
 // Saisie manuelle des valeurs d'un monome.

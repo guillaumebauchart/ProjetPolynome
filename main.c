@@ -19,11 +19,19 @@ int main()
 	getMonomialFromKeyboard (&monomial);
 	displayMonomial (monomial);
     printf("\n");
-
-    Polynomial_dev polynomial_dev;
     */
 
 
+    Polynomial_dev polynomial_dev = generatePolynomialDev(0, 10, 1);
+    displayPolynomialDev(polynomial_dev);
+
+
+    /*
+    int i;
+    srand(time(NULL));
+    for (i=0;i<40;i++)
+    printf("%.5lf\n", random(0,1));
+    */
 
     /*
 	Complex z1, z2, result1, result2;

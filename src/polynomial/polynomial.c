@@ -1,11 +1,11 @@
 #include "polynomial.h"
+#include "operations.h"
 
 
 // Initialise les champs d'un polynome développé aux valeurs passées en paramètres.
-void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev)
+void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev)
 {
-	polynomial_dev->lenght = lenght;
-	polynomial_dev->deg = deg;
+    polynomial_dev->lenght = lenght;
 	polynomial_dev->first = first;
 	polynomial_dev->last = last;
 	polynomial_dev->next = next;
@@ -13,19 +13,17 @@ void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, int deg, Mon
 }
 
 // Initialise les champs d'un polynome factorisé aux valeurs passées en paramètres.
-void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, int deg, Polynomial_dev *first, Polynomial_dev *last)
+void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, Polynomial_dev *first, Polynomial_dev *last)
 {
-	polynomial_fact->lenght = lenght;
-	polynomial_fact->deg = deg;
+    polynomial_fact->lenght = lenght;
 	polynomial_fact->first = first;
 	polynomial_fact->last = last;
 }
 
 // Initialise les champs d'un polynome aux valeurs passées en paramètres
-void initPolynomial (Polynomial *polynomial, int lenght, int deg, Polynomial_dev *developed, Polynomial_fact *factored)
+void initPolynomial (Polynomial *polynomial, int lenght, Polynomial_dev *developed, Polynomial_fact *factored)
 {
-	polynomial->lenght = lenght;
-	polynomial->deg = deg;
+    polynomial->lenght = lenght;
 	polynomial->developed = developed;
 	polynomial->factored = factored;
 	polynomial->integrated = NULL;
@@ -44,7 +42,7 @@ void displayPolynomialDev (Polynomial_dev polynomial_dev)
 	{
 		tmp = tmp->next;
 		displayMonomial(*tmp);
-        printf("\n");
+        printf(" + ");
 	}
 }
 
@@ -108,7 +106,54 @@ do
 
 
 // Renvoie le degré d'un polyome développé.
-int getDegrePolynomialDev (Polynomial_dev *polynomial_dev)
+int getDegreMaxPolynomialDev (Polynomial_dev polynomial_dev)
 {
-    return polynomial_dev->last->exponent;
+    if (polynomial_dev.last != 0)
+    {
+        return polynomial_dev.last->exponent;
+    }
+    else
+    {
+        return 0;
+    }
+}
+
+
+
+// Génère un polynome développé aléatoirement.
+Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
+{
+    // Polynomial_dev *polynomial_dev = (Polynomial_dev*) malloc (sizeof(Polynomial_dev));
+    Polynomial_dev polynomial_dev;
+    double x = 0, y = 0;
+    int i = 0;
+    Complex z;
+
+    for (i=minDeg ; i<maxDeg ; i++)
+    {
+        x = random(-50,50);
+        y = random(-50,50);
+        complexSet(&z, x, y);
+
+        double chance = random(0,1);
+
+        if (density > chance)
+        {
+            Monomial *monomial = (Monomial*) malloc (sizeof(Monomial)); // On alloue un monome.
+            initMonomial(monomial, i, z, NULL, NULL);
+            addMonomialToPolynomial(&polynomial_dev, *monomial);
+            free(monomial);
+        }
+    }
+    return polynomial_dev;
+}
+
+
+
+
+
+// Génère un double aléatoire entre a et b.
+double random(double a, double b)
+{
+    return (rand()/(double)RAND_MAX)*(b-a)+a;
 }

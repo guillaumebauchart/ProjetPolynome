@@ -1,10 +1,10 @@
 #include "operations.h"
 
 // Ajouter un monome à un polynome développé.
-void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
+void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial monomial)
 {
     Monomial *copy = (Monomial*) malloc (sizeof(Monomial)); // On alloue un monome.
-    copyMonomial(copy, *monomial); // On copie le contenu de monomial dedans.
+    copyMonomial(copy, monomial); // On copie le contenu de monomial dedans.
 
     // Si le polynome est vide.
     if (polynomial_dev->first == NULL)
@@ -23,8 +23,7 @@ void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial
 	}
 	else
 	{
-        Monomial *current = (Monomial*) malloc (sizeof(Monomial)); // On alloue une variable monomial de parcours.
-        current = polynomial_dev->first; // On la fait pointer vers le premier monome du polynome.
+        Monomial *current = polynomial_dev->first; // On crée un variable de parcours, et on la fait pointer vers le premier monome du polynome.
 
         // Tant qu'on n'est pas arrivé à la fin ET que l'exposant du monome courrant est inférieur à celui du monome à insérer.
         while (current->next != NULL && current->exponent < copy->exponent)
@@ -40,16 +39,19 @@ void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial
         // Sinon
 		else
 		{
-            insertMonomialBetweenTwoMonomials(copy, current->prev, current); // On insert le monome entre le monome courant et celui qui le précède.
-            // On met à jour la longueur et le degré du polynome.
-            polynomial_dev->lenght++;
-            polynomial_dev->deg = getDegrePolynomialDev(*polynomial_dev);
+            insertMonomialBetweenTwoMonomials(polynomial_dev, copy, current->prev, current); // On insert le monome entre le monome courant et celui qui le précède.
 		}
-
-        free(current); // On libère la variable de parcours.
 	}
+    free(copy);
 }
 
+
+// Ajoute deux polynomes entre eux et renvoie le résultat
+//Polynomial_dev addPolynomials (Polynomial_dev poly1, Polynomial_dev poly2)
+//{
+//    Polynomial_dev *result = (Polynomial_dev*) malloc(sizeof(Polynomial_dev));
+//    Monomial *current = poly1.first;
+//}
 
 
 
@@ -58,9 +60,7 @@ void insertMonomialIntoEmptyPolynomial (Polynomial_dev *polynomial_dev, Monomial
 {
     polynomial_dev->first = monomial;
     polynomial_dev->last = monomial;
-    polynomial_dev->deg = monomial->exponent;
     polynomial_dev->lenght++;
-    polynomial_dev->deg = getDegrePolynomialDev(*polynomial_dev);
 }
 
 // Insert un monome au début d'un polynome développé.
@@ -71,7 +71,6 @@ void insertMonomialAtBeginningPolynomial (Polynomial_dev *polynomial_dev, Monomi
     polynomial_dev->first->prev = monomial;
     polynomial_dev->first = monomial;
     polynomial_dev->lenght++;
-    polynomial_dev->deg = getDegrePolynomialDev(*polynomial_dev);
 }
 
 
@@ -83,21 +82,40 @@ void insertMonomialAtEndPolynomial (Polynomial_dev *polynomial_dev, Monomial *mo
     monomial->next = NULL;
     polynomial_dev->last = monomial;
     polynomial_dev->lenght++;
-    polynomial_dev->deg = getDegrePolynomialDev(*polynomial_dev);
 }
 
 // Insert un monome entre deux autres monomes d'un polynome développé.
-void insertMonomialBetweenTwoMonomials (Monomial *monomialInsert, Monomial *monomialLeft, Monomial *monomialRight)
+void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial *monomialInsert, Monomial *monomialLeft, Monomial *monomialRight)
 {
 	monomialLeft->next = monomialInsert;
 	monomialInsert->prev = monomialLeft;
 	monomialInsert->next = monomialRight;
     monomialRight->prev = monomialInsert;
+    polynomial_dev->lenght++;
 }
 
 
 // Copie les champs de monomial2 dans monomial1.
 void copyMonomial (Monomial *monomial1, Monomial monomial2)
 {
-    initMonomial(monomial1, monomial2.exponent, monomial2.coef, monomial2.next, monomial2.prev);
+    initMonomial(monomial1, monomial2.exponent, monomial2.coef, monomial2.next, monomial2.prev); // On initialise monomial1 avec les valeurs des chamops de monomial2.
 }
+
+// Copie polynomial2 dans polynomial1.
+void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev polynomial2)
+{
+    Monomial *current2 = polynomial2.first; // On crée une variable pour parcourir polynomial2.
+
+    while (current2 != NULL) // Tant qu'on n'est pas arrivé à la fin de polynomial2.
+    {
+        addMonomialToPolynomial(polynomial1, *current2); // On ajoute une copie de current2 dans polynomial1.
+        current2 = current2->next; // On passe au monome suivant.
+    }
+}
+
+
+
+
+
+
+
