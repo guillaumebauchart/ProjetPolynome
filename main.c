@@ -22,9 +22,18 @@ int main()
     */
 
 
-    Polynomial_dev polynomial_dev = generatePolynomialDev(0, 10, 1);
+    Polynomial_dev polynomial_dev = generatePolynomialDev(0, 25, 1);
     displayPolynomialDev(&polynomial_dev);
 
+    /*
+    while(1)
+    {
+        Monomial monomial;
+        getMonomialFromKeyboard (&monomial);
+        addMonomialToPolynomial(&polynomial_dev, &monomial);
+        displayPolynomialDev(&polynomial_dev);
+    }
+    */
 
     /*
     int i;

@@ -20,7 +20,7 @@ void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial
     else if (polynomial_dev->last->exponent < copy->exponent)
 	{
         insertMonomialAtEndPolynomial(polynomial_dev, copy);
-	}
+    }
 	else
 	{
         Monomial *current = polynomial_dev->first; // On crée un variable de parcours, et on la fait pointer vers le premier monome du polynome.

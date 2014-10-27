@@ -125,8 +125,9 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
     initPolynomialDev(&polynomial_dev, 0, NULL, NULL, NULL, NULL);
     int i = 0;
     Complex z;
+    srand(time(NULL));
 
-    for (i=minDeg ; i<maxDeg ; i++)
+    for (i=minDeg ; i<=maxDeg ; i++)
     {
         complexSet(&z, random(-50,50), random(-50,50));
 
@@ -142,8 +143,6 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
     }
     return polynomial_dev;
 }
-
-
 
 
 
