@@ -6,11 +6,6 @@
 #include "../complex/complex.h"
 #include "../monomial/monomial.h"
 
-// Genère un réel aléatoire entre a et b
-#define RAND(a,b) \
-    srand(time(NULL)); \
-    ((rand()/(double)RAND_MAX)*(b-a)+a);
-
 
 // Définie une structure pour un polynome développé, avec longueur, pointeur vers le premier et le dernier polynome de la liste, également vers le polynome suivant et précédent dans le cas où il y aurait une liste de molynomes développés (comme dans la forme factorisée par exemple).
 typedef struct Polynomial_dev Polynomial_dev;
@@ -50,10 +45,10 @@ void initPolynomial (Polynomial *polynomial, int lenght, Polynomial_dev *develop
 
 
 // Affiche un polynome développé.
-void displayPolynomialDev (Polynomial_dev polynomial_dev);
+void displayPolynomialDev (Polynomial_dev *polynomial_dev);
 
 // Affiche un polynome factorisé.
-void displayPolynomialFact (Polynomial_fact polynomial_fact);
+void displayPolynomialFact (Polynomial_fact *polynomial_fact);
 
 
 // Saisie manuelle des valeurs d'un polynome developpé.
@@ -61,7 +56,7 @@ void displayPolynomialFact (Polynomial_fact polynomial_fact);
 
 
 // Renvoie le degré d'un polyome développé.
-int getDegreMaxPolynomialDev (Polynomial_dev polynomial_dev);
+int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev);
 
 
 // Génère un polynome développé aléatoirement.

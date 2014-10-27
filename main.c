@@ -23,7 +23,7 @@ int main()
 
 
     Polynomial_dev polynomial_dev = generatePolynomialDev(0, 10, 1);
-    displayPolynomialDev(polynomial_dev);
+    displayPolynomialDev(&polynomial_dev);
 
 
     /*

@@ -32,35 +32,32 @@ void initPolynomial (Polynomial *polynomial, int lenght, Polynomial_dev *develop
 
 
 // Affiche un polynome développé
-void displayPolynomialDev (Polynomial_dev polynomial_dev)
+void displayPolynomialDev (Polynomial_dev *polynomial_dev)
 {
-	int i = 0;
-	Monomial *tmp = polynomial_dev.first;
-	displayMonomial(*tmp);
+    Monomial *tmp = polynomial_dev->first;
 
-	for (i = 0; i < polynomial_dev.lenght && tmp != NULL; ++i)
+    //for (i = 0; i < polynomial_dev->lenght && tmp != NULL; ++i)
+    while (tmp != NULL)
 	{
-		tmp = tmp->next;
-		displayMonomial(*tmp);
-        printf(" + ");
+        displayMonomial(tmp);
+        printf(" + \n");
+        tmp = tmp->next;
 	}
+    printf("\n\n");
 }
 
 // Affiche un polynome factorisé
-void displayPolynomialFact (Polynomial_fact polynomial_fact)
+void displayPolynomialFact (Polynomial_fact *polynomial_fact)
 {
-	int i = 0;
-	Polynomial_dev *tmp = polynomial_fact.first;
-	printf("(");
-	displayPolynomialDev(*tmp);
-	printf(") * ");
+    Polynomial_dev *tmp = polynomial_fact->first;
 
-	for (i = 0; i < polynomial_fact.lenght && tmp != NULL; ++i)
+    //for (i = 0; i < polynomial_fact->lenght && tmp != NULL; ++i)
+    while (tmp != NULL)
 	{
-		tmp = tmp->next;
-		printf("(");
-		displayPolynomialDev(*tmp);
+        printf("(");
+        displayPolynomialDev(tmp);
 		printf(") * ");
+        tmp = tmp->next;
 	}
 }
 
@@ -106,11 +103,11 @@ do
 
 
 // Renvoie le degré d'un polyome développé.
-int getDegreMaxPolynomialDev (Polynomial_dev polynomial_dev)
+int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev)
 {
-    if (polynomial_dev.last != 0)
+    if (polynomial_dev->last != 0)
     {
-        return polynomial_dev.last->exponent;
+        return polynomial_dev->last->exponent;
     }
     else
     {
@@ -125,15 +122,13 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
 {
     // Polynomial_dev *polynomial_dev = (Polynomial_dev*) malloc (sizeof(Polynomial_dev));
     Polynomial_dev polynomial_dev;
-    double x = 0, y = 0;
+    initPolynomialDev(&polynomial_dev, 0, NULL, NULL, NULL, NULL);
     int i = 0;
     Complex z;
 
     for (i=minDeg ; i<maxDeg ; i++)
     {
-        x = random(-50,50);
-        y = random(-50,50);
-        complexSet(&z, x, y);
+        complexSet(&z, random(-50,50), random(-50,50));
 
         double chance = random(0,1);
 
@@ -141,7 +136,7 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
         {
             Monomial *monomial = (Monomial*) malloc (sizeof(Monomial)); // On alloue un monome.
             initMonomial(monomial, i, z, NULL, NULL);
-            addMonomialToPolynomial(&polynomial_dev, *monomial);
+            addMonomialToPolynomial(&polynomial_dev, monomial);
             free(monomial);
         }
     }

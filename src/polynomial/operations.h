@@ -5,10 +5,10 @@
 
 
 // Ajoute un monome à un polynome développé
-void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial monomial);
+void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
 
 // Ajoute deux polynomes entre eux et renvoie le résultat
-Polynomial_dev addPolynomials (Polynomial_dev poly1, Polynomial_dev poly2);
+Polynomial_dev addPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
 
 
 
@@ -26,10 +26,10 @@ void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial
 
 
 // Copie les champs de monomial2 dans monomial1.
-void copyMonomial (Monomial *monomial1, Monomial monomial2);
+void copyMonomial (Monomial *monomial1, Monomial *monomial2);
 
 // Copie polynomial2 dans polynomial1.
-void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev polynomial2);
+void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev *polynomial2);
 
 
 #endif // OPERATIONS_H_INCLUDED

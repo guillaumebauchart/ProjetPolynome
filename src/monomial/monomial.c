@@ -10,12 +10,12 @@ void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *nex
 }
 
 // Affiche un monome
-void displayMonomial (Monomial monomial)
+void displayMonomial (Monomial *monomial)
 {
-    complexDisplay(monomial.coef);
-    if (monomial.exponent != 0)
+    complexDisplay(monomial->coef);
+    if (monomial->exponent != 0)
     {
-        printf("X^%d", monomial.exponent);
+        printf("X^%d", monomial->exponent);
     }
 }
 

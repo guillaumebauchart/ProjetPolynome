@@ -17,7 +17,7 @@ struct Monomial
 void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev);
 
 // Affiche un monome.
-void displayMonomial (Monomial monomial);
+void displayMonomial (Monomial *monomial);
 
 // Saisie manuelle des valeurs d'un monome.
 void getMonomialFromKeyboard (Monomial *monomial);
