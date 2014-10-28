@@ -6,28 +6,28 @@
 void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev)
 {
     polynomial_dev->lenght = lenght;
-	polynomial_dev->first = first;
-	polynomial_dev->last = last;
-	polynomial_dev->next = next;
-	polynomial_dev->prev = prev;
+    polynomial_dev->first = first;
+    polynomial_dev->last = last;
+    polynomial_dev->next = next;
+    polynomial_dev->prev = prev;
 }
 
 // Initialise les champs d'un polynome factorisé aux valeurs passées en paramètres.
 void initPolynomialFact (Polynomial_fact *polynomial_fact, int lenght, Polynomial_dev *first, Polynomial_dev *last)
 {
     polynomial_fact->lenght = lenght;
-	polynomial_fact->first = first;
-	polynomial_fact->last = last;
+    polynomial_fact->first = first;
+    polynomial_fact->last = last;
 }
 
 // Initialise les champs d'un polynome aux valeurs passées en paramètres
 void initPolynomial (Polynomial *polynomial, int lenght, Polynomial_dev *developed, Polynomial_fact *factored)
 {
     polynomial->lenght = lenght;
-	polynomial->developed = developed;
-	polynomial->factored = factored;
-	polynomial->integrated = NULL;
-	polynomial->derivative = NULL;
+    polynomial->developed = developed;
+    polynomial->factored = factored;
+    polynomial->integrated = NULL;
+    polynomial->derivative = NULL;
 }
 
 
@@ -38,11 +38,11 @@ void displayPolynomialDev (Polynomial_dev *polynomial_dev)
 
     //for (i = 0; i < polynomial_dev->lenght && tmp != NULL; ++i)
     while (tmp != NULL)
-	{
+    {
         displayMonomial(tmp);
         printf(" + \n");
         tmp = tmp->next;
-	}
+    }
     printf("\n\n");
 }
 
@@ -53,12 +53,12 @@ void displayPolynomialFact (Polynomial_fact *polynomial_fact)
 
     //for (i = 0; i < polynomial_fact->lenght && tmp != NULL; ++i)
     while (tmp != NULL)
-	{
+    {
         printf("(");
         displayPolynomialDev(tmp);
-		printf(") * ");
+        printf(") * ");
         tmp = tmp->next;
-	}
+    }
 }
 
 
@@ -66,23 +66,23 @@ void displayPolynomialFact (Polynomial_fact *polynomial_fact)
 // Saisie manuelle des valeurs d'un polynome developpé.
 void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev)
 {
-	int i = 0, lenght;
+    int i = 0, lenght;
 
-	do
+    do
     {
         printf("Choisissez une longueur pour le polynome : ");
         saisie = scanf("%d", &lenght);
         fflush(stdin); // On vide la mémoire tampon.
     }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
 
-	Monomial *tmp = polynomial_dev.first;
-	displayMonomial(*tmp);
+    Monomial *tmp = polynomial_dev.first;
+    displayMonomial(*tmp);
 
-	for (i = 0; i < polynomial_dev.lenght && tmp != NULL; ++i)
-	{
-		tmp = tmp->next;
-		displayMonomial(*tmp);
-	}
+    for (i = 0; i < polynomial_dev.lenght && tmp != NULL; ++i)
+    {
+        tmp = tmp->next;
+        displayMonomial(*tmp);
+    }
 }
 
 */
@@ -125,7 +125,6 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
     initPolynomialDev(&polynomial_dev, 0, NULL, NULL, NULL, NULL);
     int i = 0;
     Complex z;
-    srand(time(NULL));
 
     for (i=minDeg ; i<=maxDeg ; i++)
     {
@@ -143,6 +142,50 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
     }
     return polynomial_dev;
 }
+
+// Supprime monomial de polynomial_dev et libère la mémoire.
+void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
+{
+    if (polynomial_dev->first == monomial)
+    {
+        polynomial_dev->first = polynomial_dev->first->next;
+        if (polynomial_dev->first != NULL)
+        {
+            polynomial_dev->first->prev = NULL;
+        }
+        else
+        {
+            polynomial_dev->last = NULL;
+        }
+    }
+    else if (polynomial_dev->last == monomial)
+    {
+        polynomial_dev->last = polynomial_dev->last->prev;
+        if (polynomial_dev->last != NULL)
+        {
+            polynomial_dev->last->next = NULL;
+        }
+    }
+    else
+    {
+        monomial->prev->next = monomial->next;
+        monomial->next->prev = monomial->prev;
+    }
+    polynomial_dev->lenght--;
+    free(monomial);
+}
+
+
+// Supprimer un polynome developpé et libère la mémoire.
+void removePolynomialDev (Polynomial_dev *polynomial_dev)
+{
+    while (polynomial_dev->last != NULL)
+    {
+        removeMonomial(polynomial_dev, polynomial_dev->last);
+    }
+    free(polynomial_dev);
+}
+
 
 
 

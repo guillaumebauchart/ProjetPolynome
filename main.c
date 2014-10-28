@@ -8,7 +8,9 @@
 
 int main()
 {
-	/*
+    srand(time(NULL));
+
+    /*
 	Complex z;
 	getComplexFromKeyBoard (&z);
 	complexDisplay (z);
@@ -21,14 +23,26 @@ int main()
     printf("\n");
     */
 
+    while (1)
+    {
+        Polynomial_dev polynomial_dev1 = generatePolynomialDev(0, 1, 1);
+        displayPolynomialDev(&polynomial_dev1);
 
-    Polynomial_dev polynomial_dev = generatePolynomialDev(0, 25, 1);
-    displayPolynomialDev(&polynomial_dev);
+        Polynomial_dev polynomial_dev2 = generatePolynomialDev(0, 1, 1);
+        displayPolynomialDev(&polynomial_dev2);
+
+        polynomial_dev1 = addPolynomials(&polynomial_dev1, &polynomial_dev2);
+        displayPolynomialDev(&polynomial_dev1);
+
+        removePolynomialDev(&polynomial_dev1);
+        removePolynomialDev(&polynomial_dev2);
+    }
+
 
     /*
     while(1)
     {
-        Monomial monomial;
+        Monomial monomial;&
         getMonomialFromKeyboard (&monomial);
         addMonomialToPolynomial(&polynomial_dev, &monomial);
         displayPolynomialDev(&polynomial_dev);

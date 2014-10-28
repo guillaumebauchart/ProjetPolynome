@@ -63,6 +63,13 @@ int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev);
 Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density);
 
 
+// Supprime monomial de polynomial_dev et libère la mémoire.
+void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
+
+// Supprimer un polynome developpé et libère la mémoire.
+void removePolynomialDev (Polynomial_dev *polynomial_dev);
+
+
 // Génère un double aléatoire entre a et b.
 double random(double a, double b);
 

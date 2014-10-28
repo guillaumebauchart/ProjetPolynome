@@ -21,8 +21,15 @@ void insertMonomialAtBeginningPolynomial (Polynomial_dev *polynomial_dev, Monomi
 // Insert un monome à la fin d'un polynome développé.
 void insertMonomialAtEndPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
 
-// Insert un monome entre deux autres monomes d'un polynome développé
-void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial *monomialInsert, Monomial *monomialLeft, Monomial *monomialRight);
+// Insert un monome à gauche du monome courant.
+void insertMonomialBeforeCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert);
+
+// Insert un monome à droite du monome courant.
+void insertMonomialAfterCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert);
+
+// Insert un monome entre deux autres monomes d'un polynome développé.
+void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial *monomialLeft, Monomial *monomialRight, Monomial *monomialInsert);
+
 
 
 // Copie les champs de monomial2 dans monomial1.

@@ -11,7 +11,7 @@ void complexSet (Complex *z, double x, double y)
 // Affiche le nombre complexe z
 void complexDisplay (Complex z)
 {
-    printf("(%.0lf + %.0lfi)", z.x, z.y);
+    printf("(%.2lf + %.2lfi)", z.x, z.y);
 }
 
 // Réalise une somme de nombre Complexs.

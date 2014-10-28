@@ -37,3 +37,4 @@ void getMonomialFromKeyboard (Monomial *monomial)
 
     initMonomial(monomial, exponent, coef, NULL, NULL);
 }
+
