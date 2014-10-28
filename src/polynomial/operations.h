@@ -4,10 +4,10 @@
 #include "polynomial.h"
 
 
-// Ajoute un monome à un polynome développé
-void addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
+// Ajoute un monome à un polynome développé.
+Polynomial_dev addMonomialToPolynomial(Polynomial_dev *polynomial_dev, Monomial *monomial);
 
-// Ajoute deux polynomes entre eux et renvoie le résultat
+// Ajoute deux polynomes entre eux et renvoie le résultat.
 Polynomial_dev addPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
 
 

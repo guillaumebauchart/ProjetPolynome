@@ -23,6 +23,7 @@ int main()
     printf("\n");
     */
 
+    /*
     while (1)
     {
         Polynomial_dev polynomial_dev1 = generatePolynomialDev(0, 1, 1);
@@ -37,17 +38,21 @@ int main()
         removePolynomialDev(&polynomial_dev1);
         removePolynomialDev(&polynomial_dev2);
     }
-
+    */
 
     /*
+    Polynomial_dev polynomial_dev = generatePolynomialDev(2, 6, 1);
+    displayPolynomialDev(&polynomial_dev);
+
     while(1)
     {
-        Monomial monomial;&
+        Monomial monomial;
         getMonomialFromKeyboard (&monomial);
-        addMonomialToPolynomial(&polynomial_dev, &monomial);
+        polynomial_dev = addMonomialToPolynomial(&polynomial_dev, &monomial);
         displayPolynomialDev(&polynomial_dev);
     }
     */
+
 
     /*
     int i;
