@@ -22,6 +22,9 @@ void complexDisplay (Complex z);
 // Réalise une somme de nombre Complexes.
 Complex complexSum (Complex z1, Complex z2);
 
+// Réalise une somme de nombre Complexes.
+Complex complexSubtract (Complex z1, Complex z2);
+
 // Réalise un produit de nombres Complexes.
 Complex complexMultiplication (Complex z1, Complex z2);
 

@@ -4,11 +4,23 @@
 #include "polynomial.h"
 
 
-// Ajoute un monome à un polynome développé.
-Polynomial_dev addMonomialToPolynomial(Polynomial_dev *polynomial_dev, Monomial *monomial);
+// Ajoute un monome à un polynome développé et retourne l'adresse du polynome résultat.
+Polynomial_dev *addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
 
-// Ajoute deux polynomes entre eux et renvoie le résultat.
-Polynomial_dev addPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
+// Ajoute deux polynomes entre eux et retourne l'adresse du polynome résultat.
+Polynomial_dev *addPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
+
+// Soustrait deux polynomes entre eux et retourne l'adresse du polynome résultat.
+Polynomial_dev *subtractPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
+
+
+
+// Multiplication d'un polynome développé par un monome, retourne l'adresse du polynome résultat.
+Polynomial_dev *multiplyPolynomialByMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
+
+// Multiplication naïve de deux polynomes développé, retourne l'adresse du polynome résultat.
+Polynomial_dev *multiplyRawPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
+
 
 
 

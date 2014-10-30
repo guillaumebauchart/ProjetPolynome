@@ -113,10 +113,18 @@ int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev)
     }
 }
 
+// Créer un polynome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du polynome.
+Polynomial_dev *createPolynomialDev ()
+{
+    Polynomial_dev *polynomial_dev = (Polynomial_dev*) malloc(sizeof(Polynomial_dev)); // On déclare le polynome et on alloue la mémoire.
+    initPolynomialDev(polynomial_dev, 0, NULL, NULL, NULL, NULL); // On initialise ses champs à 0.
+
+    return polynomial_dev;
+}
 
 
-// Génère un polynome développé aléatoirement.
-Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
+// Génère un polynome développé aléatoirement et en retourne l'adresse.
+Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density)
 {
     /* Génère un polnyome developpé aléatoire avec des monomes dont l'exposant est compris
      * entre minDeg et maxDeg. Sachant que la densité est un nombre en 0 et 1 qui
@@ -125,30 +133,20 @@ Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density)
      * soit crée.
      */
 
-
-    // Polynomial_dev *polynomial_dev = (Polynomial_dev*) malloc (sizeof(Polynomial_dev));
-    Polynomial_dev polynomial_dev; // On déclare le polynome.
-    initPolynomialDev(&polynomial_dev, 0, NULL, NULL, NULL, NULL); // On initialise ses champs à 0.
+    Polynomial_dev *polynomial_dev = createPolynomialDev(); // On crée un polynome développé vide.
     int i = 0; // On déclare la variable de parcours.
-    Complex z; // On déclare le coefficient.
 
     for (i=minDeg ; i<=maxDeg ; i++) // On parcours l'intervalle de degrés demandés.
     {
-        double chance = random(0,1); // On calcul la chance aléatoirement entre 0 et 1.
+        double chance = randomInInterval(0,1); // On calcul la chance aléatoirement entre 0 et 1.
 
-        if (density > chance) // Si la densité est supérieur à la chance, on créer le monome, sinon non.
+        if (density >= chance) // Si la densité est supérieur ou égale à la chance, on créer le monome, sinon non.
         {
-            complexSet(&z, random(-50,50), random(-50,50)); // On initialise le complexe aléatoirement.
-
-            Monomial *monomial = (Monomial*) malloc (sizeof(Monomial)); // On alloue un monome.
-            initMonomial(monomial, i, z, NULL, NULL); // On initialise ses champs à 0.
-
-            polynomial_dev = addMonomialToPolynomial(&polynomial_dev, monomial); // On l'ajoute dans le polynome.
-
-            free(monomial); // On libère le monome (car c'est une copie qui sera ajouter dans le polynome).
+            Monomial *monomial = generateRandomMonomial(i);
+            insertMonomialAtEndPolynomial(polynomial_dev, monomial);
         }
     }
-    return polynomial_dev; // On renvoie le polynome.
+    return polynomial_dev; // On renvoie l'adresse du polynome.
 }
 
 // Supprime monomial de polynomial_dev et libère la mémoire.
@@ -158,7 +156,7 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
     {
         polynomial_dev->first = polynomial_dev->first->next; // Le premier monome devient le successeur de l'ancier premier monome.
 
-        if (polynomial_dev->first != NULL) // Si le premier monome existe.
+        if (polynomial_dev->first != NULL) // Si l'ancien premier monome a un successeur.
         {
             polynomial_dev->first->prev = NULL; // Son prédécesseur devient NULL.
         }
@@ -171,7 +169,7 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
     {
         polynomial_dev->last = polynomial_dev->last->prev; // Le dernier monome devient le prédécesseur de l'ancier dernier monome.
 
-        if (polynomial_dev->last != NULL) // Si le dernier monome existe.
+        if (polynomial_dev->last != NULL) // Si l'ancien dernier monome a un prédécesseur.
         {
             polynomial_dev->last->next = NULL; // Son successeur devient NULL.
         }
@@ -190,19 +188,22 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
 // Supprimer un polynome developpé et libère la mémoire.
 void removePolynomialDev (Polynomial_dev *polynomial_dev)
 {
-    while (polynomial_dev->last != NULL) // Tant que le dernier monome existe.
+    if (polynomial_dev != NULL)
     {
-        removeMonomial(polynomial_dev, polynomial_dev->last); // On supprimer le dernier monome.
-    }
+        while (polynomial_dev->last != NULL) // Tant que le dernier monome existe.
+        {
+            removeMonomial(polynomial_dev, polynomial_dev->last); // On supprimer le dernier monome.
+        }
 
-    free(polynomial_dev); // On libère le polynome à la fin.
+        free(polynomial_dev); // On libère le polynome à la fin.
+    }
 }
 
 
 
 
 // Génère un double aléatoire entre a et b.
-double random(double a, double b)
+double randomInInterval (double a, double b)
 {
     /* rand()/RAND_MAX donne un nombre entre 0 et 1.
      * On mutliplie de résultat par l'écart entre les deux bornes.

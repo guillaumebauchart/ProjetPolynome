@@ -45,6 +45,18 @@ Complex complexSum (Complex z1, Complex z2)
     return z; // On renvoie le nombre Complex obtenu.
 }
 
+// Réalise une somme de nombre Complexes.
+Complex complexSubtract (Complex z1, Complex z2)
+{
+    Complex z; // On crée un nombre Complex.
+    complexSet(&z, 0, 0); // On l'initialise à 0.
+
+    z.x = z1.x - z2.x; // On soustrait les parties réelles.
+    z.y = z1.y - z2.y; // On soustrait les parties imaginaires.
+
+    return z; // On renvoie le nombre Complex obtenu.
+}
+
 // Réalise un produit de nombres Complexes.
 Complex complexMultiplication (Complex z1, Complex z2)
 {

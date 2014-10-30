@@ -59,8 +59,11 @@ void displayPolynomialFact (Polynomial_fact *polynomial_fact);
 int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev);
 
 
-// Génère un polynome développé aléatoirement.
-Polynomial_dev generatePolynomialDev(int minDeg, int maxDeg, double density);
+// Créer un polynome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du polynome.
+Polynomial_dev *createPolynomialDev ();
+
+// Génère un polynome développé aléatoirement et en retourne l'adresse.
+Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density);
 
 
 // Supprime monomial de polynomial_dev et libère la mémoire.
@@ -71,7 +74,7 @@ void removePolynomialDev (Polynomial_dev *polynomial_dev);
 
 
 // Génère un double aléatoire entre a et b.
-double random(double a, double b);
+double randomInInterval (double a, double b);
 
 
 #endif // POLYNOMIAL_H_INCLUDED

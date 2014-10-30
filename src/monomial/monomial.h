@@ -23,4 +23,11 @@ void displayMonomial (Monomial *monomial);
 void getMonomialFromKeyboard (Monomial *monomial);
 
 
+// Créer un monome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du monome.
+Monomial *createMonomial ();
+
+// Génère un monome aléatoirement et en retourne l'adresse.
+Monomial *generateRandomMonomial (int deg);
+
+
 #endif // MONOMIAL_H_INCLUDED

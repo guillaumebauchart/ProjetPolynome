@@ -1,4 +1,6 @@
 #include "monomial.h"
+#include "../polynomial/polynomial.h"
+#include <assert.h>
 
 // Initialise les champs d'un monome aux valeurs passées en paramètres.
 void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev)
@@ -9,7 +11,7 @@ void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *nex
     monomial->prev = prev;
 }
 
-// Affiche un monome
+// Affiche un monome.
 void displayMonomial (Monomial *monomial)
 {
     complexDisplay(monomial->coef); // On affiche le coef complexe.
@@ -37,4 +39,31 @@ void getMonomialFromKeyboard (Monomial *monomial)
 
     initMonomial(monomial, exponent, coef, NULL, NULL); // On initialise le monome aux valeurs récupérées.
 }
+
+
+// Créer un monome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du monome.
+Monomial *createMonomial ()
+{
+    Monomial *monomial = (Monomial*) malloc(sizeof(Monomial)); // On déclare le monome et on alloue la mémoire.
+    Complex z; // On déclare le coefficient.
+
+    complexSet(&z, 0, 0); // On initialise le complexe à 0.
+    initMonomial(monomial, 0, z, NULL, NULL); // On initialise ses champs à 0.
+
+    return monomial; // On renvoie l'adresse du monome.
+}
+
+// Génère un monome aléatoirement et en retourne l'adresse.
+Monomial *generateRandomMonomial (int deg)
+{
+    Monomial *monomial = createMonomial(); // On crée un monome.
+
+    // complexSet(&(monomial->coef), randomInInterval(-5,5), randomInInterval(-5,5)); // On initialise le complexe aléatoirement.
+    complexSet(&(monomial->coef), 1+rand()%3, 1+rand()%3); // On initialise le complexe aléatoirement.
+    initMonomial(monomial, deg, monomial->coef, NULL, NULL); // On initialise ses champs à 0.
+
+    return monomial; // On renvoie l'adresse du monome.
+}
+
+
 
