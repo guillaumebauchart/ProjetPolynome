@@ -1,7 +1,7 @@
 ProjetPolynome
 ==============
 
-SDD Semestre 1 Projet Polynome
+SDD Semestre 3 Projet Polynome
 
 ## Progression du Projet
 
@@ -12,13 +12,13 @@ SDD Semestre 1 Projet Polynome
   - [x] Réprésentation des polynômes développés
   - [x] Réprésentation des polynômes factorisées
 
-- [ ] Opération
+- [ ] Opérations
   - [x] Addition
   - [x] Soustraction
-  - [ ] Multiplication
+  - [x] Multiplication
 	- [x] Un polynome par un monôme
 	- [x] Multiplication naïve
-	- [ ] Karatsuba
+	- [x] Karatsuba
   - [ ] Evaluation (Ruffini-Horner, exponentiation rapide)
 	- [ ] Exponentiation rapide
 	- [ ] Ruffini-Horner
@@ -30,7 +30,7 @@ SDD Semestre 1 Projet Polynome
   - [ ] Decomposition
   - [ ] PGDC
 
-- [ ] Interface Graphique
+- [ ] Interface Utilisateur
   - [x] Génération aléatoire d'un monôme
   - [x] Génération aléatoire d'un polynôme
   - [ ] Affichage interactif

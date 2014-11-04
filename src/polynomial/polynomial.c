@@ -1,6 +1,5 @@
 #include "polynomial.h"
-#include "operations.h"
-
+#include "../tools/utility.h"
 
 // Initialise les champs d'un polynome développé aux valeurs passées en paramètres.
 void initPolynomialDev (Polynomial_dev *polynomial_dev, int lenght, Monomial *first, Monomial *last, Polynomial_dev *next, Polynomial_dev *prev)
@@ -100,19 +99,6 @@ do
 */
 
 
-// Renvoie le degré d'un polyome développé.
-int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev)
-{
-    if (polynomial_dev->last != NULL) // Si le polynome n'est pas vide, on renvoie le l'exposant du dernier monome.
-    {
-        return polynomial_dev->last->exponent;
-    }
-    else // Sinon on renvoie 0.
-    {
-        return 0;
-    }
-}
-
 // Créer un polynome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du polynome.
 Polynomial_dev *createPolynomialDev ()
 {
@@ -173,6 +159,10 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
         {
             polynomial_dev->last->next = NULL; // Son successeur devient NULL.
         }
+        else
+        {
+            polynomial_dev->first = NULL;
+        }
     }
     else
     {
@@ -199,17 +189,3 @@ void removePolynomialDev (Polynomial_dev *polynomial_dev)
     }
 }
 
-
-
-
-// Génère un double aléatoire entre a et b.
-double randomInInterval (double a, double b)
-{
-    /* rand()/RAND_MAX donne un nombre entre 0 et 1.
-     * On mutliplie de résultat par l'écart entre les deux bornes.
-     * On ajoute la valeur de la première borne.
-     * On renvoie le résultat.
-     */
-
-    return (rand()/(double)RAND_MAX)*(b-a)+a;
-}

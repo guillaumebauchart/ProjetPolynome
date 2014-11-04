@@ -3,8 +3,7 @@
 
 #include <time.h>
 
-#include "../complex/complex.h"
-#include "../monomial/monomial.h"
+#include "../tools/monomial.h"
 
 
 // Définie une structure pour un polynome développé, avec longueur, pointeur vers le premier et le dernier polynome de la liste, également vers le polynome suivant et précédent dans le cas où il y aurait une liste de molynomes développés (comme dans la forme factorisée par exemple).
@@ -55,9 +54,6 @@ void displayPolynomialFact (Polynomial_fact *polynomial_fact);
 // void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev);
 
 
-// Renvoie le degré d'un polyome développé.
-int getDegreMaxPolynomialDev (Polynomial_dev *polynomial_dev);
-
 
 // Créer un polynome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du polynome.
 Polynomial_dev *createPolynomialDev ();
@@ -71,10 +67,6 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
 
 // Supprimer un polynome developpé et libère la mémoire.
 void removePolynomialDev (Polynomial_dev *polynomial_dev);
-
-
-// Génère un double aléatoire entre a et b.
-double randomInInterval (double a, double b);
 
 
 #endif // POLYNOMIAL_H_INCLUDED

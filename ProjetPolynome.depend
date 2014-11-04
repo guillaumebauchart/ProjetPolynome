@@ -6,13 +6,14 @@
 	<stdio.h>
 	<stdlib.h>
 
-1414533513 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
+1414763627 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
 	<stdio.h>
 	<stdlib.h>
-	"src\complex\complex.h"
-	"src\monomial\monomial.h"
-	"src\polynomial\polynomial.h"
-	"src\polynomial\operations.h"
+	"src/tools/complex.h"
+	"src/tools/monomial.h"
+	"src/tools/utility.h"
+	"src/polynomial/polynomial.h"
+	"src/polynomial/operations.h"
 
 1413105895 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\polynomial\struct.h
 	<stdio.h>
@@ -33,16 +34,17 @@
 	<stdio.h>
 	<stdlib.h>
 
-1414533504 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.c
+1414763627 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.c
 	"operations.h"
-
-1414533504 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.h
 	"polynomial.h"
 
-1414500560 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.h
+1414763627 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.h
+	"../tools/utility.h"
+	"polynomial.h"
+
+1414762913 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.h
 	<time.h>
-	"../complex/complex.h"
-	"../monomial/monomial.h"
+	"../tools/monomial.h"
 
 1414500560 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\monomial\monomial.h
 	"../complex/complex.h"
@@ -50,7 +52,165 @@
 1414532663 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\monomial\monomial.c
 	"monomial.h"
 
-1414533504 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.c
+1414763344 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.c
 	"polynomial.h"
+	"../tools/utility.h"
+
+1414702043 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\complex.h
+	<stdio.h>
+	<stdlib.h>
+
+1414762876 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\monomial.h
+	"complex.h"
+
+1414763007 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\utility.h
+	"../polynomial/polynomial.h"
+	"monomial.h"
+
+1414702043 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\complex.c
+	"complex.h"
+
+1414713070 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\monomial.c
+	"monomial.h"
+
+1414714491 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\utility.c
+	"utility.h"
+
+1415095942 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\main.c
+	<stdio.h>
+	<stdlib.h>
+	"src/tools/complex.h"
+	"src/tools/monomial.h"
+	"src/tools/utility.h"
+	"src/polynomial/polynomial.h"
+	"src/polynomial/operations.h"
+	<time.h>
+
+1415095327 c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\complex.h
+	<stdio.h>
+	<stdlib.h>
+
+1415095327 c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\monomial.h
+	"complex.h"
+
+1415095327 c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\utility.h
+	"../polynomial/polynomial.h"
+	"monomial.h"
+
+1415095327 c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\polynomial\polynomial.h
+	<time.h>
+	"../tools/monomial.h"
+
+1415095327 c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\polynomial\operations.h
+	"../tools/utility.h"
+	"polynomial.h"
+
+1415097423 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\polynomial\operations.c
 	"operations.h"
+	"polynomial.h"
+
+1415095327 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\polynomial\polynomial.c
+	"polynomial.h"
+	"../tools/utility.h"
+
+1415095327 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\complex.c
+	"complex.h"
+
+1415095327 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\monomial.c
+	"monomial.h"
+
+1415095327 source:c:\users\20130203\downloads\projetpolynome-2014-11-04\projetpolynome\src\tools\utility.c
+	"utility.h"
+
+1415106680 source:e:\projetpolynome-2014-11-04\projetpolynome\src\polynomial\operations.c
+	"operations.h"
+	"polynomial.h"
+
+1415095328 e:\projetpolynome-2014-11-04\projetpolynome\src\polynomial\operations.h
+	"../tools/utility.h"
+	"polynomial.h"
+
+1415095328 e:\projetpolynome-2014-11-04\projetpolynome\src\tools\utility.h
+	"../polynomial/polynomial.h"
+	"monomial.h"
+
+1415095328 e:\projetpolynome-2014-11-04\projetpolynome\src\polynomial\polynomial.h
+	<time.h>
+	"../tools/monomial.h"
+
+1415095328 e:\projetpolynome-2014-11-04\projetpolynome\src\tools\monomial.h
+	"complex.h"
+
+1415095328 e:\projetpolynome-2014-11-04\projetpolynome\src\tools\complex.h
+	<stdio.h>
+	<stdlib.h>
+
+1415095328 source:e:\projetpolynome-2014-11-04\projetpolynome\src\polynomial\polynomial.c
+	"polynomial.h"
+	"../tools/utility.h"
+
+1415095328 source:e:\projetpolynome-2014-11-04\projetpolynome\src\tools\complex.c
+	"complex.h"
+
+1415095328 source:e:\projetpolynome-2014-11-04\projetpolynome\src\tools\monomial.c
+	"monomial.h"
+
+1415095328 source:e:\projetpolynome-2014-11-04\projetpolynome\src\tools\utility.c
+	"utility.h"
+
+1415107542 source:e:\projetpolynome-2014-11-04\projetpolynome\main.c
+	<stdio.h>
+	<stdlib.h>
+	"src/tools/complex.h"
+	"src/tools/monomial.h"
+	"src/tools/utility.h"
+	"src/polynomial/polynomial.h"
+	"src/polynomial/operations.h"
+	<time.h>
+
+1415115798 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\main.c
+	<stdio.h>
+	<stdlib.h>
+	"src/tools/complex.h"
+	"src/tools/monomial.h"
+	"src/tools/utility.h"
+	"src/polynomial/polynomial.h"
+	"src/polynomial/operations.h"
+	<time.h>
+
+1415115699 c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\complex.h
+	<stdio.h>
+	<stdlib.h>
+
+1415115699 c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\monomial.h
+	"complex.h"
+
+1415115699 c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\utility.h
+	"../polynomial/polynomial.h"
+	"monomial.h"
+
+1415115699 c:\users\20130203\downloads\projetpolynome\projetpolynome\src\polynomial\polynomial.h
+	<time.h>
+	"../tools/monomial.h"
+
+1415115699 c:\users\20130203\downloads\projetpolynome\projetpolynome\src\polynomial\operations.h
+	"../tools/utility.h"
+	"polynomial.h"
+
+1415115699 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\src\polynomial\operations.c
+	"operations.h"
+	"polynomial.h"
+
+1415115921 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\src\polynomial\polynomial.c
+	"polynomial.h"
+	"../tools/utility.h"
+
+1415115699 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\complex.c
+	"complex.h"
+
+1415115699 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\monomial.c
+	"monomial.h"
+
+1415115919 source:c:\users\20130203\downloads\projetpolynome\projetpolynome\src\tools\utility.c
+	"utility.h"
 

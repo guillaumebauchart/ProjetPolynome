@@ -1,52 +1,6 @@
 #include "operations.h"
+#include "polynomial.h"
 
-
-/*
-// Ajouter un monome à un polynome développé.
-Polynomial_dev addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
-{
-    Monomial *copy = (Monomial*) malloc (sizeof(Monomial)); // On alloue un monome.
-    copyMonomial(copy, monomial); // On copie le contenu de monomial dedans.
-
-    // Si le polynome est vide.
-    if (polynomial_dev->first == NULL)
-    {
-        insertMonomialIntoEmptyPolynomial(polynomial_dev, copy);
-    }
-    // Si l'exposant du premier monome est supérieur au monome que l'on veut ajouter, alors il faut l'insérer tout au début.
-    else if (polynomial_dev->first->exponent > copy->exponent)
-    {
-        insertMonomialAtBeginningPolynomial(polynomial_dev, copy);
-    }
-    // Si l'exposant du dernier monome est inférieur au monome que l'on veut ajouter, alors il faut l'insérer tout à la fin.
-    else if (polynomial_dev->last->exponent < copy->exponent)
-	{
-        insertMonomialAtEndPolynomial(polynomial_dev, copy);
-    }
-	else
-	{
-        Monomial *current = polynomial_dev->first; // On crée un variable de parcours, et on la fait pointer vers le premier monome du polynome.
-
-        // Tant qu'on n'est pas arrivé à la fin ET que l'exposant du monome courrant est inférieur à celui du monome à insérer.
-        while (current->next != NULL && current->exponent < copy->exponent)
-		{
-            current = current->next; // On passe au monome suivant.
-		}
-
-        // Si les deux exposant sont égaux.
-        if (current->exponent == copy->exponent)
-		{
-            current->coef = complexSum(current->coef, copy->coef); // On ajouter les coefficients entre eux.
-        }
-		else
-		{
-            insertMonomialBeforeCurrent(polynomial_dev, current, copy); // On insert le monome avant le monome courant.
-		}
-    }
-
-    return *polynomial_dev;
-}
-*/
 
 // Ajoute un monome à un polynome développé et retourne l'adresse du polynome résultat.
 Polynomial_dev *addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
@@ -63,7 +17,6 @@ Polynomial_dev *addMonomialToPolynomial (Polynomial_dev *polynomial_dev, Monomia
         Polynomial_dev *singleton = createPolynomialDev(); // On crée un polynome vide.
         insertMonomialIntoEmptyPolynomial(singleton, monomial); // On insert le monome dans le polynome singleton.
 
-        //*polynomial_dev = addPolynomials(polynomial_dev, &singleton); // On fait ajoute le singleton au polynome.
         result = addPolynomials(polynomial_dev, singleton); // On fait la somme du singleton et du polynome, récupère l'adresse du résultat dans result.
     }
 
@@ -176,7 +129,7 @@ Polynomial_dev *subtractPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly
              * avant le monome courant de result.
              */
 
-            Monomial *copy = (Monomial*) malloc (sizeof(Monomial)); // On crée une copie du monome courant de poly2, que l'on va insérer dans result.
+            Monomial *copy = createMonomial(); // On crée une copie du monome courant de poly2, que l'on va insérer dans result.
             copyMonomial(copy, current2); // On copie current2 dans copy.
             copy->coef.x *= -1; copy->coef.y *= -1;
             insertMonomialBeforeCurrent(result, current1, copy); // On insert copy avant le monome current1 dans result.
@@ -227,189 +180,167 @@ Polynomial_dev *multiplyPolynomialByMonomial (Polynomial_dev *polynomial_dev, Mo
 // Multiplication naïve de deux polynomes développé, retourne l'adresse du polynome résultat.
 Polynomial_dev *multiplyRawPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2)
 {
-    Polynomial_dev *result = createPolynomialDev(); // On créer le polynome vide qui va contenir le résultat.
+    Polynomial_dev *result = createPolynomialDev(); // On crée le polynome vide qui va contenir le résultat.
     Monomial *current = poly2->first;
 
     while (current != NULL)
     {
-        Polynomial_dev *copyPoly1 = createPolynomialDev(); // On créer le polynome vide qui va contenir la copie de poly1.
-        copyPolynomial(copyPoly1, poly1);
+        Polynomial_dev *temp = NULL; // On crée le polynome vide qui va contenir un résultat temporaire.
+        Polynomial_dev *before = result; // On crée un pointeur qui va stocker l'ancienne adresse de result, pour pouvoir libérer la mémoire ensuite.
 
-        //addPolynomials(&result, multiplyPolynomialByMonomial(&copyPoly1, current));
-        copyPoly1 = multiplyPolynomialByMonomial(copyPoly1, current);
-        result = addPolynomials(result, copyPoly1);
+        temp = multiplyPolynomialByMonomial(poly1, current); // temp reçoit le résultat de la multiplication du poly1 et du monome courant de poly2.
+        result = addPolynomials(before, temp); // On ajoute temp à result.
 
-        removePolynomialDev(copyPoly1);
+        // On libère la mémoire.
+        removePolynomialDev(before);
+        removePolynomialDev(temp);
 
-        current = current->next;
+        current = current->next; // On fait avancer la variable de parcours.
     }
+
+    return result; // On retourne l'adresse du résultat.
+}
+
+// Multiplie deux polynomes.
+Polynomial_dev *multiplyPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2)
+{
+    Polynomial_dev *result;
+
+    result = multiplyPolynomialsKaratsuba(poly1, poly2);
 
     return result;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-// Insert un monome dans un polynome développé vide.
-void insertMonomialIntoEmptyPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
+// Découpe un polynome avant et après la puissance n et met les deux parties dans left et right.
+void splitAndReducePolynomial (Polynomial_dev *polynomial_dev, Polynomial_dev *left, Polynomial_dev *right, int n)
 {
-    // Le monome inséré devient à la fois le premier et le dernier du polynome.
-    polynomial_dev->first = monomial;
-    polynomial_dev->last = monomial;
+    Monomial *current = polynomial_dev->first; // On crée une variable de parcours pour le polynome à découper.
 
-    // Il n'a aucun prédécesseur ni successeur.
-    monomial->prev = NULL;
-    monomial->next = NULL;
-
-    polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-}
-
-// Insert un monome au début d'un polynome développé.
-void insertMonomialAtBeginningPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
-{
-    if (polynomial_dev->lenght == 0) // Si le polynome est vide, on utilise la fonction pour inserer un monome dans un polynome vide.
+    while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
     {
-        insertMonomialIntoEmptyPolynomial(polynomial_dev, monomial);
-    }
-    else
-    {
-        // Le monome inséré n'a pas de prédécesseur, et son successeur est l'ancien premier monome du polynome
-        monomial->prev = NULL;
-        monomial->next = polynomial_dev->first;
+        Monomial *copyToAdd = createMonomial(); // On crée un monome qui va recevoir un copie du monome courrant du polynome.
+        copyMonomial(copyToAdd, current); // On fait la copie.
 
-        polynomial_dev->first->prev = monomial; // Le prédécesseur de l'ancien premier monome devient le monome inséré.
-        polynomial_dev->first = monomial; // Le premier monome devient le monome inséré.
-
-        polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-    }
-}
-
-// Insert un monome à la fin d'un polynome développé.
-void insertMonomialAtEndPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
-{
-    if (polynomial_dev->lenght == 0) // Si le polynome est vide, on utilise la fonction pour inserer un monome dans un polynome vide.
-    {
-        insertMonomialIntoEmptyPolynomial(polynomial_dev, monomial);
-    }
-    else
-    {
-        // Le monome inséré a pour prédécesseur l'ancier dernier monome, et n'a pas de successeur.
-        monomial->prev = polynomial_dev->last;
-        monomial->next = NULL;
-
-        polynomial_dev->last->next = monomial; // L'ancien dernier monome a pour successeur le monome inséré.
-        polynomial_dev->last = monomial; // Le dernier monome devient le monome inséré.
-
-        polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-    }
-}
-
-// Insert un monome à gauche du monome courant.
-void insertMonomialBeforeCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert)
-{
-    if (current == NULL) // Si current pointe vers NULL, on insert le monome à la fin du polynome.
-    {
-        insertMonomialAtEndPolynomial(polynomial_dev, toInsert);
-    }
-    else if (current == polynomial_dev->first) // Sinon si le monome courant le premier du polynome, on insert le monome au début du polynome.
-    {
-        insertMonomialAtBeginningPolynomial(polynomial_dev, toInsert);
-    }
-    else
-    {
-        // Le monome inséré a pour prédécésseur l'ancien prédécesseur du monome courant, et pour successeur le monome courant.
-        toInsert->prev = current->prev;
-        toInsert->next = current;
-
-        current->prev->next = toInsert; // L'ancien prédécesseur du monome courant a pour successeur le monome inséré.
-        current->prev = toInsert; // Le monome courant a pour prédécesseur le monome inséré.
-
-        polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-    }
-}
-
-// Insert un monome à droite du monome courant.
-void insertMonomialAfterCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert)
-{
-    if (current == NULL || polynomial_dev->last == current) // Si current pointe vers NULL, ou que c'est le dernier monome du polynome, on l'insert à la fin du polynome.
-    {
-        insertMonomialAtEndPolynomial(polynomial_dev, toInsert);
-    }
-    else
-    {
-        // Le monome inséré a pour prédécesseur le monome courant, et pour successeur le successeur du monome courant.
-        toInsert->prev = current;
-        toInsert->next = current->next;
-
-        current->next->prev =  toInsert; // L'ancien successeur du monome courant a pour successeur le monome inséré.
-        current->next = toInsert; // Le monome courant a pour successeur le monome inséré.
-
-        polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-    }
-}
-
-/*
- * insertMonomialBetweenTwoMonomials à garder ? Ou inutile ?
- */
-
-// Insert un monome entre deux autres monomes d'un polynome développé.
-void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial *monomialLeft, Monomial *monomialRight, Monomial *monomialInsert)
-{
-    monomialLeft->next = monomialInsert;
-    monomialInsert->prev = monomialLeft;
-    monomialInsert->next = monomialRight;
-    monomialRight->prev = monomialInsert;
-
-    polynomial_dev->lenght++; // On incrémente la longueur du polynome.
-}
-
-// Copie les champs de monomial2 dans monomial1.
-void copyMonomial (Monomial *monomial1, Monomial *monomial2)
-{
-    initMonomial(monomial1, monomial2->exponent, monomial2->coef, NULL, NULL); // On initialise monomial1 avec les valeurs des champs de monomial2.
-}
-
-
-/*
-// Copie polynomial2 dans polynomial1.
-void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev *polynomial2)
-{
-    Monomial *current2 = polynomial2->first; // On crée une variable pour parcourir polynomial2.
-
-    while (current2 != NULL) // Tant qu'on n'est pas arrivé à la fin de polynomial2.
-    {
-        polynomial1 = addMonomialToPolynomial(polynomial1, current2); // On ajoute une copie de current2 dans polynomial1.
-        current2 = current2->next; // On passe au monome suivant.
-    }
-}
-*/
-
-// Copie polynomial2 dans polynomial1.
-void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev *polynomial2)
-{
-    // La fonction assume que polynomial1 est toujours vide.
-    if (polynomial2 != NULL)
-    {
-        Monomial *current2 = polynomial2->first; // On crée une variable pour parcourir polynomial2.
-
-        while (current2 != NULL) // Tant qu'on n'est pas arrivé à la fin de polynomial2.
+        if (current->exponent >= n) // Si l'exposant est supérieur à n.
         {
-            Monomial *toAddPoly1 = createMonomial(); // On crée un monome vide.
-            copyMonomial(toAddPoly1, current2); // Il reçoit une copie de current2.
-            insertMonomialAtEndPolynomial(polynomial1, toAddPoly1); // On l'ajoute à la fin de polynomial1.
-            current2 = current2->next; // On passe au monome suivant.
+            copyToAdd->exponent -= n; // On retire n à l'exposant, car on factorise par X^n.
+            insertMonomialAtEndPolynomial(left, copyToAdd); // On ajoute le monome dans le polynome de gauche.
         }
+        else
+        {
+            insertMonomialAtEndPolynomial(right, copyToAdd); // Sinon on ajoute directment la copie dans le polynome de droite.
+        }
+
+        current = current->next; // On fait avancer la variable de parcours.
     }
 }
+
+// Multiplie le polynome par X^n
+void increasePolynomial(Polynomial_dev *polynomial_dev, int n)
+{
+    Monomial *current = polynomial_dev->first; // On crée une variable de parcours qui pointe vers le premier monome du polynome.
+
+    while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
+    {
+        current->exponent += n; // On ajoute n à l'exposant du monome courant.
+        current = current->next; // On fait avancer la variable de parcours.
+    }
+}
+
+
+// Algorightme de Karatsuba
+Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev *B)
+{
+    if (A->lenght == 0 || B->lenght == 0) // On vérifie si l'un des polynomes est nul, si oui on renvoie un polynome nul.
+    {
+        return createPolynomialDev();
+    }
+
+    Polynomial_dev *before; // On définie cette variable temporaire qui va contenir les adresses précédentes de chaque pointeur, cela va permettre de libérer la mémoire à chaque fois.
+
+    // On détermine la puissance centrale.
+    int degMax = normeSup(getDegreMaxPolynomialDev(A), getDegreMaxPolynomialDev(B));
+    int degMin = normeInf(getDegreMinPolynomialDev(A), getDegreMinPolynomialDev(B));
+    int n = (degMin + degMax)/2;
+
+    // Si un des polynomes est un singleton, on fait une multiplication de polynomes naïve.
+    if (n == 0 || A->lenght == 1 || B->lenght == 1)
+    {
+        return multiplyRawPolynomials(A, B);
+    }
+
+    // On décompose les polynomes selon n, tel que : A = A1*X^n + A2 et B = B1*X^n + B2.
+    Polynomial_dev *A1 = createPolynomialDev(), *A2 = createPolynomialDev(), *B1 = createPolynomialDev(), *B2 = createPolynomialDev();
+    splitAndReducePolynomial(A, A1, A2, n);
+    splitAndReducePolynomial(B, B1, B2, n);
+
+    // On calcule un premier résultat intermédiaire : I1 = A2 * B2.
+    Polynomial_dev *I1 = createPolynomialDev();
+    copyPolynomial(I1, A2);
+    before = I1; // On stocke l'adresse précédente.
+    I1 = multiplyPolynomials(I1, B2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    // Puis le deuxième : I2 = A1 * B1
+    Polynomial_dev *I2 = createPolynomialDev();
+    copyPolynomial(I2, A1);
+    before = I2; // On stocke l'adresse précédente.
+    I2 = multiplyPolynomials(I2, B1);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    // On réutilise A2 et B2 pour respectivement stocker A1+A2 et B1+B2.
+    before = A2; // On stocke l'adresse précédente.
+    A2 = addPolynomials(A1, A2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    before = B2; // On stocke l'adresse précédente.
+    B2 = addPolynomials(B1, B2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    // On calcul un premier résultat
+    before = A2; // On stocke l'adresse précédente.
+    A2 = multiplyPolynomials(A2, B2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    before = A2; // On stocke l'adresse précédente.
+    A2 = subtractPolynomials(A2, I1);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    before = A2; // On stocke l'adresse précédente.
+    A2 = subtractPolynomials(A2, I2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    // On élève la puissance de A2 et I2
+    increasePolynomial(A2, n);
+    increasePolynomial(I2, 2*n);
+
+    // On ajoute I2 et I1 à A2
+    before = A2; // On stocke l'adresse précédente.
+    A2 = addPolynomials(A2, I2);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    before = A2; // On stocke l'adresse précédente.
+    A2 = addPolynomials(A2, I1);
+    removePolynomialDev(before); // On libère la mémoire.
+
+    // On libère la mémoire
+    removePolynomialDev(A1);
+    removePolynomialDev(B1);
+    removePolynomialDev(B2);
+    removePolynomialDev(I1);
+    removePolynomialDev(I2);
+
+    return A2;
+}
+
+
+
+
+
+
+
+
+
 
 

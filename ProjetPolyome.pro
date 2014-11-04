@@ -4,17 +4,19 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += main.c \
-    src/complex/complex.c \
-    src/monomial/monomial.c \
     src/polynomial/operations.c \
-    src/polynomial/polynomial.c
+    src/polynomial/polynomial.c \
+    src/tools/complex.c \
+    src/tools/utility.c \
+    src/tools/monomial.c
 
 include(deployment.pri)
 qtcAddDeployment()
 
 HEADERS += \
-    src/complex/complex.h \
-    src/monomial/monomial.h \
     src/polynomial/operations.h \
-    src/polynomial/polynomial.h
+    src/polynomial/polynomial.h \
+    src/tools/complex.h \
+    src/tools/utility.h \
+    src/tools/monomial.h
 

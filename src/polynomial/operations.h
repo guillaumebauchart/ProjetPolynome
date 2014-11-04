@@ -1,6 +1,7 @@
 #ifndef OPERATIONS_H_INCLUDED
 #define OPERATIONS_H_INCLUDED
 
+#include "../tools/utility.h"
 #include "polynomial.h"
 
 
@@ -22,33 +23,18 @@ Polynomial_dev *multiplyPolynomialByMonomial (Polynomial_dev *polynomial_dev, Mo
 Polynomial_dev *multiplyRawPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
 
 
+// Multiplie deux polynomes.
+Polynomial_dev *multiplyPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2);
 
+// Découpe un polynome avant et après la puissance n et met les deux parties dans left et right.
+void splitAndReducePolynomial (Polynomial_dev *polynomial_dev, Polynomial_dev *left, Polynomial_dev *right, int n);
 
-// Insert un monome dans un polynome développé vide.
-void insertMonomialIntoEmptyPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
+// Multiplie le polynome par X^n
+void increasePolynomial(Polynomial_dev *polynomial_dev, int n);
 
-// Insert un monome au début d'un polynome développé.
-void insertMonomialAtBeginningPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
+// Algorightme de Karatsuba
+Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev *B);
 
-// Insert un monome à la fin d'un polynome développé.
-void insertMonomialAtEndPolynomial (Polynomial_dev *polynomial_dev, Monomial *monomial);
-
-// Insert un monome à gauche du monome courant.
-void insertMonomialBeforeCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert);
-
-// Insert un monome à droite du monome courant.
-void insertMonomialAfterCurrent (Polynomial_dev *polynomial_dev, Monomial *current, Monomial *toInsert);
-
-// Insert un monome entre deux autres monomes d'un polynome développé.
-void insertMonomialBetweenTwoMonomials (Polynomial_dev *polynomial_dev, Monomial *monomialLeft, Monomial *monomialRight, Monomial *monomialInsert);
-
-
-
-// Copie les champs de monomial2 dans monomial1.
-void copyMonomial (Monomial *monomial1, Monomial *monomial2);
-
-// Copie polynomial2 dans polynomial1.
-void copyPolynomial (Polynomial_dev *polynomial1, Polynomial_dev *polynomial2);
 
 
 #endif // OPERATIONS_H_INCLUDED

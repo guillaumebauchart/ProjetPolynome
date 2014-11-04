@@ -1,7 +1,7 @@
 #ifndef MONOMIAL_H_INCLUDED
 #define MONOMIAL_H_INCLUDED
 
-#include "../complex/complex.h"
+#include "complex.h"
 
 // Définie une structure pour un monome, avec exposant, coefficient, pointeur vers monome suivant et précédent.
 typedef struct Monomial Monomial;

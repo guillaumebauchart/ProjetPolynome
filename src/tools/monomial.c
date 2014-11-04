@@ -1,6 +1,4 @@
 #include "monomial.h"
-#include "../polynomial/polynomial.h"
-#include <assert.h>
 
 // Initialise les champs d'un monome aux valeurs passées en paramètres.
 void initMonomial (Monomial *monomial, int exponent, Complex coef, Monomial *next, Monomial *prev)
