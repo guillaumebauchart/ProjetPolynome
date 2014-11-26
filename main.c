@@ -10,8 +10,7 @@
 
 int main()
 {
-    srand(time(NULL));
-
+    
     //while (1)
     //{
         Polynomial_dev *polynomial_dev1 = generateRandomPolynomialDev(0, 10000, 1);
