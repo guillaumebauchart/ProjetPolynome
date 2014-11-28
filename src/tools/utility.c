@@ -181,27 +181,13 @@ int getDegreMinPolynomialDev (Polynomial_dev *polynomial_dev)
 // Renvoie le plus grand entre a et b.
 int normeSup (int a, int b)
 {
-    if (a >= b)
-    {
-        return a;
-    }
-    else
-    {
-        return b;
-    }
+    return (a >= b) ? a : b;
 }
 
 // Renvoie le plus petit entre a et b.
 int normeInf (int a, int b)
 {
-    if (a >= b)
-    {
-        return b;
-    }
-    else
-    {
-        return a;
-    }
+    return (a >= b) ? b : a;
 }
 
 

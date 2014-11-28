@@ -85,20 +85,6 @@ void getPolynomialDevFromKeyBoard (Polynomial_dev *polynomial_dev)
 */
 
 
-/* Recherche pour faire une fonction de saisie sécurisée générique, fonction actuellement non-terminée.
-
-void* saisieSecure ()
-
-do
-    {
-        cout << "Choisissez une valeure pour min : ";
-        saisie = scanf("%lf", min);
-        fflush(stdin); // On vide la mémoire tampon.
-    }while(!saisie); // Tant que l'utilisateur ne rentre pas un reel comme on le lui demande.
-
-*/
-
-
 // Créer un polynome, alloue la mémoire, l'initialise à 0, et retourne l'adresse du polynome.
 Polynomial_dev *createPolynomialDev ()
 {
@@ -110,7 +96,7 @@ Polynomial_dev *createPolynomialDev ()
 
 
 // Génère un polynome développé aléatoirement et en retourne l'adresse.
-Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density)
+Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density, double minGap, double maxGap)
 {
     /* Génère un polnyome developpé aléatoire avec des monomes dont l'exposant est compris
      * entre minDeg et maxDeg. Sachant que la densité est un nombre en 0 et 1 qui
@@ -128,7 +114,7 @@ Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double dens
 
         if (density >= chance) // Si la densité est supérieur ou égale à la chance, on créer le monome, sinon non.
         {
-            Monomial *monomial = generateRandomMonomial(i);
+            Monomial *monomial = generateRandomMonomial(i, minGap, maxGap);
             insertMonomialAtEndPolynomial(polynomial_dev, monomial);
         }
     }
@@ -141,7 +127,6 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
     if (polynomial_dev->first == monomial) // Si on doit supprimer le premier monome du polynome.
     {
         polynomial_dev->first = polynomial_dev->first->next; // Le premier monome devient le successeur de l'ancier premier monome.
-
         if (polynomial_dev->first != NULL) // Si l'ancien premier monome a un successeur.
         {
             polynomial_dev->first->prev = NULL; // Son prédécesseur devient NULL.
@@ -167,7 +152,7 @@ void removeMonomial (Polynomial_dev *polynomial_dev, Monomial *monomial)
     else
     {
         monomial->prev->next = monomial->next; // Le successeur du prédécesseur du monome à supprimer devient le successeur du monome à supprimer.
-        monomial->next->prev = monomial->prev; // Le prédécesseur du successeur du monome à supprimer devient le prédécesseur du monome à supprimer.
+        monomial->next->prev = monomial->prev; // Le prédécesseur du successeur du monome à supprimer devient le prédécesseur du monome à supprime
     }
     polynomial_dev->lenght--; // On décrémente la longueur du polynome.
 

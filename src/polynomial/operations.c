@@ -40,7 +40,7 @@ Polynomial_dev *addPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly2)
     {
         if (current1 != NULL && current1->exponent == current2->exponent) // Si on n'est pas à la fin de poly1, et que l'on a deux monomes à exposants égaux.
         {
-            current1->coef = complexSum(current1->coef, current2->coef); // On fait la sommes des coefs, et on stock le résultat dans le monome correspondant de result.
+            current1->coef = complexSum(&current1->coef, &current2->coef); // On fait la sommes des coefs, et on stock le résultat dans le monome correspondant de result.
 
             // Il faut vérifier que la somme n'a pas rendu nul le coef.
             Monomial *toRemove = NULL; // On déclare un variable qui va stocker l'adresse du monome nul s'il s'avère qu'il y en a un.
@@ -100,7 +100,7 @@ Polynomial_dev *subtractPolynomials (Polynomial_dev *poly1, Polynomial_dev *poly
     {
         if (current1 != NULL && current1->exponent == current2->exponent) // Si on n'est pas à la fin de poly1, et que l'on a deux monomes à exposants égaux.
         {
-            current1->coef = complexSubtract(current1->coef, current2->coef); // On fait la soustraction des coefs, et on stock le résultat dans le monome correspondant de result.
+            current1->coef = complexSubtract(&current1->coef, &current2->coef); // On fait la soustraction des coefs, et on stock le résultat dans le monome correspondant de result.
 
             // Il faut vérifier que la soustraction n'a pas rendu nul le coef.
             Monomial *toRemove = NULL; // On déclare un variable qui va stocker l'adresse du monome nul s'il s'avère qu'il y en a un.
@@ -156,7 +156,7 @@ Polynomial_dev *multiplyPolynomialByMonomial (Polynomial_dev *polynomial_dev, Mo
 
     while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
     {
-        current->coef = complexMultiplication(current->coef, monomial->coef); // On multiplie les coefs entre eux, et on stock le résultat dans le coef courant.
+        current->coef = complexMultiply(&current->coef, &monomial->coef); // On multiplie les coefs entre eux, et on stock le résultat dans le coef courant.
         current->exponent += monomial->exponent; // On ajoute à l'exposant courant, l'exposant de monomial.
 
         // Il faut vérifier que le produit n'a pas rendu nul le coef.
@@ -172,6 +172,24 @@ Polynomial_dev *multiplyPolynomialByMonomial (Polynomial_dev *polynomial_dev, Mo
         {
             removeMonomial(result, toRemove);
         }
+    }
+
+    return result; // On retourne l'adresse du résultat.
+}
+
+// Multiplication d'un polynome développé par un scalaire k.
+Polynomial_dev *multiplyPolynomialByScalar (Polynomial_dev *polynomial_dev, Complex *z)
+{
+    Polynomial_dev *result = createPolynomialDev(); // On créer le polynome vide qui va contenir le résultat.
+    copyPolynomial(result, polynomial_dev); // On copie polynomial_dev dans result.
+
+    Monomial *current = result->first; // On déclare la variable de parcours.
+
+    while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
+    {
+        current->coef = complexMultiply(&current->coef, z); // On multiplie le coefficient de chaque monome par le scalaire.
+
+        current = current->next;
     }
 
     return result; // On retourne l'adresse du résultat.
@@ -260,9 +278,9 @@ Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev 
     Polynomial_dev *before; // On définie cette variable temporaire qui va contenir les adresses précédentes de chaque pointeur, cela va permettre de libérer la mémoire à chaque fois.
 
     // On détermine la puissance centrale.
-    int degMax = normeSup(getDegreMaxPolynomialDev(A), getDegreMaxPolynomialDev(B));
-    int degMin = normeInf(getDegreMinPolynomialDev(A), getDegreMinPolynomialDev(B));
-    int n = (degMin + degMax)/2;
+    int maxDeg = normeSup(getDegreMaxPolynomialDev(A), getDegreMaxPolynomialDev(B));
+    int minDeg = normeInf(getDegreMinPolynomialDev(A), getDegreMinPolynomialDev(B));
+    int n = (minDeg + maxDeg)/2;
 
     // Si un des polynomes est un singleton, on fait une multiplication de polynomes naïve.
     if (n == 0 || A->lenght == 1 || B->lenght == 1)
@@ -278,51 +296,29 @@ Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev 
     // On calcule un premier résultat intermédiaire : I1 = A2 * B2.
     Polynomial_dev *I1 = createPolynomialDev();
     copyPolynomial(I1, A2);
-    before = I1; // On stocke l'adresse précédente.
-    I1 = multiplyPolynomials(I1, B2);
-    removePolynomialDev(before); // On libère la mémoire.
+    KARATSUBA_MULTIPLY(I1, B2);
 
     // Puis le deuxième : I2 = A1 * B1
     Polynomial_dev *I2 = createPolynomialDev();
     copyPolynomial(I2, A1);
-    before = I2; // On stocke l'adresse précédente.
-    I2 = multiplyPolynomials(I2, B1);
-    removePolynomialDev(before); // On libère la mémoire.
+    KARATSUBA_MULTIPLY(I2, B1);
 
     // On réutilise A2 et B2 pour respectivement stocker A1+A2 et B1+B2.
-    before = A2; // On stocke l'adresse précédente.
-    A2 = addPolynomials(A1, A2);
-    removePolynomialDev(before); // On libère la mémoire.
-
-    before = B2; // On stocke l'adresse précédente.
-    B2 = addPolynomials(B1, B2);
-    removePolynomialDev(before); // On libère la mémoire.
+    KARATSUBA_ADD(A2, A1);
+    KARATSUBA_ADD(B2, B1);
 
     // On calcul un premier résultat
-    before = A2; // On stocke l'adresse précédente.
-    A2 = multiplyPolynomials(A2, B2);
-    removePolynomialDev(before); // On libère la mémoire.
-
-    before = A2; // On stocke l'adresse précédente.
-    A2 = subtractPolynomials(A2, I1);
-    removePolynomialDev(before); // On libère la mémoire.
-
-    before = A2; // On stocke l'adresse précédente.
-    A2 = subtractPolynomials(A2, I2);
-    removePolynomialDev(before); // On libère la mémoire.
+    KARATSUBA_MULTIPLY(A2, B2);
+    KARATSUBA_SUBTRACT(A2, I1);
+    KARATSUBA_SUBTRACT(A2, I2);
 
     // On élève la puissance de A2 et I2
     increasePolynomial(A2, n);
     increasePolynomial(I2, 2*n);
 
     // On ajoute I2 et I1 à A2
-    before = A2; // On stocke l'adresse précédente.
-    A2 = addPolynomials(A2, I2);
-    removePolynomialDev(before); // On libère la mémoire.
-
-    before = A2; // On stocke l'adresse précédente.
-    A2 = addPolynomials(A2, I1);
-    removePolynomialDev(before); // On libère la mémoire.
+    KARATSUBA_ADD(A2, I2);
+    KARATSUBA_ADD(A2, I1);
 
     // On libère la mémoire
     removePolynomialDev(A1);
@@ -334,13 +330,61 @@ Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev 
     return A2;
 }
 
+// Dérive le polynome développé et retourne l'adresse du polynome résultat.
+Polynomial_dev *derivePolynomial (Polynomial_dev *polynomial_dev)
+{
+    Polynomial_dev *result = createPolynomialDev(); // On créer le polynome vide qui va contenir le résultat.
+    copyPolynomial(result, polynomial_dev); // On copie polynomial_dev dans result.
+
+    Monomial *current = result->first; // On déclare la variable de parcours.
+    Monomial *toRemove;
+
+    while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
+    {
+        toRemove = NULL;
+
+        if (current->exponent == 0) // Si l'exposant est nul
+        {
+            toRemove = current;
+        }
+        else
+        {
+            Complex temp;
+            complexSet(&temp, current->exponent, 0);
+            current->coef = complexMultiply(&temp, &current->coef);
+            current->exponent--;
+        }
+
+        current = current->next;
+
+        if (toRemove != NULL)
+        {
+            removeMonomial(result, toRemove);
+        }
+    }
+
+    return result;
+}
 
 
+// Intègre le polynome développé et retourne l'adresse du polynome résultat.
+Polynomial_dev *integratePolynomial (Polynomial_dev *polynomial_dev)
+{
+    Polynomial_dev *result = createPolynomialDev(); // On créer le polynome vide qui va contenir le résultat.
+    copyPolynomial(result, polynomial_dev); // On copie polynomial_dev dans result.
 
+    Monomial *current = result->first; // On déclare la variable de parcours.
+    Complex newCoef;
 
+    while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
+    {
+        current->exponent++;
+        complexSet(&newCoef, current->exponent, 0);
+        current->coef = complexDivide(&current->coef, &newCoef);
 
+        current = current->next;
+    }
 
-
-
-
+    return result;
+}
 

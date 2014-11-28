@@ -3,6 +3,7 @@
 
 #include "complex.h"
 
+
 // Définie une structure pour un monome, avec exposant, coefficient, pointeur vers monome suivant et précédent.
 typedef struct Monomial Monomial;
 struct Monomial
@@ -27,7 +28,7 @@ void getMonomialFromKeyboard (Monomial *monomial);
 Monomial *createMonomial ();
 
 // Génère un monome aléatoirement et en retourne l'adresse.
-Monomial *generateRandomMonomial (int deg);
+Monomial *generateRandomMonomial (int deg, double gapMin, double gapMax);
 
 
 #endif // MONOMIAL_H_INCLUDED
