@@ -20,8 +20,9 @@ SDD Semestre 3 Projet Polynome
 	- [x] Multiplication naïve
 	- [x] Karatsuba
   - [ ] Evaluation (Ruffini-Horner, exponentiation rapide)
-	- [ ] Exponentiation rapide
+	- [x] Exponentiation rapide
 	- [ ] Ruffini-Horner
+  - [x] Elever un polynome à la puissance n (avec exponentiation rapide)
   - [ ] Division euclidienne
   - [ ] Factorisation
   - [x] Integration
