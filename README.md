@@ -24,8 +24,8 @@ SDD Semestre 3 Projet Polynome
 	- [ ] Ruffini-Horner
   - [ ] Division euclidienne
   - [ ] Factorisation
-  - [ ] Integration
-  - [ ] Derivation
+  - [x] Integration
+  - [x] Derivation
   - [ ] Composition
   - [ ] Decomposition
   - [ ] PGDC
