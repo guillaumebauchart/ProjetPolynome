@@ -8,8 +8,7 @@
 // Définie une structure pour nombre Complex, avec partie réelle et partie imaginaire.
 typedef struct
 {
-    double x;
-    double y;
+    double x, y;
 }Complex;
 
 
@@ -34,7 +33,7 @@ Complex complexDivide (Complex *z1, Complex *z2);
 // Conjugue un nombre complexe.
 Complex complexConjugate (Complex *z1);
 
-// Renvoie le complexe z élevé à la puissance n.
+// Renvoie le complexe z élevé à la puissance n avec l'exponentiation rapide.
 Complex complexPow (Complex *z1, int n);
 
 // Saisie manuelle d'un nombre Complexe.

@@ -38,7 +38,6 @@ void complexDisplay (Complex *z)
 Complex complexSum (Complex *z1, Complex *z2)
 {
     Complex z; // On crée un nombre Complex.
-    complexSet(&z, 0, 0); // On l'initialise à 0.
 
     z.x = z1->x + z2->x; // On additionne les parties réelles.
     z.y = z1->y + z2->y; // On additionne les parties imaginaires.
@@ -50,7 +49,6 @@ Complex complexSum (Complex *z1, Complex *z2)
 Complex complexSubtract (Complex *z1, Complex *z2)
 {
     Complex z; // On crée un nombre Complex.
-    complexSet(&z, 0, 0); // On l'initialise à 0.
 
     z.x = z1->x - z2->x; // On soustrait les parties réelles.
     z.y = z1->y - z2->y; // On soustrait les parties imaginaires.
@@ -62,7 +60,6 @@ Complex complexSubtract (Complex *z1, Complex *z2)
 Complex complexMultiply (Complex *z1, Complex *z2)
 {
     Complex z; // On crée un nombre Complex.
-    complexSet(&z, 0, 0); // On l'initialise à 0.
 
     z.x = z1->x * z2->x - z1->y * z2->y; // On regroupe les parties réelles.
     z.y = z1->y * z2->x + z1->x * z2->y; // On regroupe les parties imaginaires.
@@ -73,56 +70,53 @@ Complex complexMultiply (Complex *z1, Complex *z2)
 // Réalise un quotient de nombres Complexes.
 Complex complexDivide (Complex *z1, Complex *z2)
 {
-    Complex z;
+    Complex z; // On crée un nombre Complex.
 
-    z.x = (z1->x*z2->x + z1->y*z2->y)/(z2->x*z2->x + z2->y*z2->y);
-    z.y = (z1->y*z2->x - z1->x*z2->y)/(z2->x*z2->x + z2->y*z2->y);
+    z.x = (z1->x*z2->x + z1->y*z2->y)/(z2->x*z2->x + z2->y*z2->y); // On calcule la partie réelle.
+    z.y = (z1->y*z2->x - z1->x*z2->y)/(z2->x*z2->x + z2->y*z2->y); // On calcule la partie imaginaire.
 
-    return z;
+    return z; // On renvoie le nombre Complex obtenu.
 }
 
 // Conjugue un nombre complexe.
 Complex complexConjugate (Complex *z1)
 {
-    Complex z;
+    Complex z; // On crée un nombre Complex.
 
-    z.x = z1->x;
-    z.y = -z1->y;
+    z.x = z1->x; // On ne touche pas à la partie réelle.
+    z.y = -z1->y; // On récupère l'opposée de la partie imaginaire.
 
-    return z;
+    return z; // On renvoie le nombre Complex obtenu.
 }
 
-// Renvoie le complexe z1 élevé à la puissance n.
+// Renvoie le complexe z1 élevé à la puissance n avec l'exponentiation rapide.
 Complex complexPow (Complex *z1, int n)
 {
-    Complex z;
-    z.x = z1->x;
-    z.y = z1->y;
+    Complex z; // On crée un nombre Complex.
+    complexSet(&z, z1->x, z1->y); // On en fait une copie de z1.
 
-    if(n == 0)
-        {
-            z.x = 1.;
-            z.y = 0.;
-            return z;
-        }
+    if(n == 0) // Si la puissance est nulle.
+    {
+        complexSet(&z, 1, 0); // On z vaut 1.
+        return z; // On venvoie z.
+    }
 
-        if(n == 1)
-        {
-            return *z1;
-        }
-        else if(n % 2 == 0)
-        {
-            z = complexMultiply(&z, &z);
-            return complexPow(&z, n/2);
-        }
-        else
-        {
-            Complex copy = z;
-            z = complexMultiply(&z, &z);
-            z = complexPow(&z, (n-1)/2);
-            //return Complex_multiply(&z, &copy);
-            return complexMultiply(&z, &copy);
-        }
+    if(n == 1) // Si la piussance vaut 1.
+    {
+        return *z1; // On renvoie le nombre intacte.
+    }
+    else if(n % 2 == 0) // Si la puissance est paire.
+    {
+        z = complexMultiply(&z, &z); // On met le résultat au carré.
+        return complexPow(&z, n/2); // Et on renvoie le résultat à la puissance n/2.
+    }
+    else // Sinon
+    {
+        Complex copy = z; // On crée une copie de z.
+        z = complexMultiply(&z, &z); // On met z au carré.
+        z = complexPow(&z, (n-1)/2); // z vaut z élevé à la puissance (n-1)/2.
+        return complexMultiply(&z, &copy); // On renvoie z multiplié par le z de départ.
+    }
 }
 
 // Saisie manuelle d'un nombre Complexe.

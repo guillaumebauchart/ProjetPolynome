@@ -254,7 +254,7 @@ void splitAndReducePolynomial (Polynomial_dev *polynomial_dev, Polynomial_dev *l
     }
 }
 
-// Multiplie le polynome par X^n
+// Multiplie le polynome par X^n.
 void increasePolynomial(Polynomial_dev *polynomial_dev, int n)
 {
     Monomial *current = polynomial_dev->first; // On crée une variable de parcours qui pointe vers le premier monome du polynome.
@@ -267,7 +267,7 @@ void increasePolynomial(Polynomial_dev *polynomial_dev, int n)
 }
 
 
-// Algorightme de Karatsuba
+// Algorightme de Karatsuba.
 Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev *B)
 {
     if (A->lenght == 0 || B->lenght == 0) // On vérifie si l'un des polynomes est nul, si oui on renvoie un polynome nul.
@@ -296,29 +296,29 @@ Polynomial_dev *multiplyPolynomialsKaratsuba (Polynomial_dev *A, Polynomial_dev 
     // On calcule un premier résultat intermédiaire : I1 = A2 * B2.
     Polynomial_dev *I1 = createPolynomialDev();
     copyPolynomial(I1, A2);
-    KARATSUBA_MULTIPLY(I1, B2);
+    MULTIPLY_POLYNOMIALS(I1, B2);
 
     // Puis le deuxième : I2 = A1 * B1
     Polynomial_dev *I2 = createPolynomialDev();
     copyPolynomial(I2, A1);
-    KARATSUBA_MULTIPLY(I2, B1);
+    MULTIPLY_POLYNOMIALS(I2, B1);
 
     // On réutilise A2 et B2 pour respectivement stocker A1+A2 et B1+B2.
-    KARATSUBA_ADD(A2, A1);
-    KARATSUBA_ADD(B2, B1);
+    ADD_POLYNOMIALS(A2, A1);
+    ADD_POLYNOMIALS(B2, B1);
 
     // On calcul un premier résultat
-    KARATSUBA_MULTIPLY(A2, B2);
-    KARATSUBA_SUBTRACT(A2, I1);
-    KARATSUBA_SUBTRACT(A2, I2);
+    MULTIPLY_POLYNOMIALS(A2, B2);
+    SUBTRACT_POLYNOMIALS(A2, I1);
+    SUBTRACT_POLYNOMIALS(A2, I2);
 
     // On élève la puissance de A2 et I2
     increasePolynomial(A2, n);
     increasePolynomial(I2, 2*n);
 
     // On ajoute I2 et I1 à A2
-    KARATSUBA_ADD(A2, I2);
-    KARATSUBA_ADD(A2, I1);
+    ADD_POLYNOMIALS(A2, I2);
+    ADD_POLYNOMIALS(A2, I1);
 
     // On libère la mémoire
     removePolynomialDev(A1);
@@ -336,8 +336,7 @@ Polynomial_dev *derivePolynomial (Polynomial_dev *polynomial_dev)
     Polynomial_dev *result = createPolynomialDev(); // On créer le polynome vide qui va contenir le résultat.
     copyPolynomial(result, polynomial_dev); // On copie polynomial_dev dans result.
 
-    Monomial *current = result->first; // On déclare la variable de parcours.
-    Monomial *toRemove;
+    Monomial *current = result->first, *toRemove; // On déclare la variable de parcours et le pointeur qui va stocker l'élément à supprimer s'il y en a un.
 
     while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
     {
@@ -345,25 +344,25 @@ Polynomial_dev *derivePolynomial (Polynomial_dev *polynomial_dev)
 
         if (current->exponent == 0) // Si l'exposant est nul
         {
-            toRemove = current;
+            toRemove = current; // On va retirer le monome.
         }
-        else
+        else // Sinon
         {
-            Complex temp;
-            complexSet(&temp, current->exponent, 0);
-            current->coef = complexMultiply(&temp, &current->coef);
-            current->exponent--;
+            Complex temp; // On crée un complexe temporaire.
+            complexSet(&temp, current->exponent, 0); // On lui affecte la valeur de l'exposant courrant comme partie réelle et 0 comme partie imaginaire.
+            current->coef = complexMultiply(&temp, &current->coef); // On multiplie le coef par temp.
+            current->exponent--; // On décrémente l'exposant.
         }
 
-        current = current->next;
+        current = current->next; // On fait avancer la variable de parcours.
 
-        if (toRemove != NULL)
+        if (toRemove != NULL) // S'il y a un monome à retirer.
         {
-            removeMonomial(result, toRemove);
+            removeMonomial(result, toRemove); // On le retire.
         }
     }
 
-    return result;
+    return result; // On renvoie l'adresse du résultat.
 }
 
 
@@ -374,17 +373,44 @@ Polynomial_dev *integratePolynomial (Polynomial_dev *polynomial_dev)
     copyPolynomial(result, polynomial_dev); // On copie polynomial_dev dans result.
 
     Monomial *current = result->first; // On déclare la variable de parcours.
-    Complex newCoef;
+    Complex temp; // On crée un complexe temporaire pour calculer les coefficients.
 
     while (current != NULL) // Tant qu'on n'est pas arrivé à la fin du polynome.
     {
-        current->exponent++;
-        complexSet(&newCoef, current->exponent, 0);
-        current->coef = complexDivide(&current->coef, &newCoef);
+        current->exponent++; // On incrémente l'exposant.
+        complexSet(&temp, current->exponent, 0); // Le complexe temporaire vaut la valeur de l'exposant.
+        current->coef = complexDivide(&current->coef, &temp); // On divise le coefficient courant pour le complexe temporaire.
 
-        current = current->next;
+        current = current->next; // On fait avancer la variable de parcours.
     }
 
-    return result;
+    return result; // On renvoie l'adresse du résultat.
 }
 
+// Elève un polynome à la puissance n avec l'exponentiation rapide.
+Polynomial_dev *powPolynomial (Polynomial_dev *polynomial_dev, int n)
+{
+    if (n == 0) // Si la puissance est nulle.
+    {
+        return createPolynomialDev(); // On renvoie un polynome nul.
+    }
+
+    if (n == 1) // Si la puissance vaut 1.
+    {
+        return polynomial_dev; // On renvoie le polynome intacte.
+    }
+    else if (n%2 == 0) // Si la puissance est paire.
+    {
+        Polynomial_dev *temp = multiplyPolynomials(polynomial_dev, polynomial_dev); // On crée un polynome temporaire qui contient le polynome initiale au carré.
+        return powPolynomial(temp, n/2); // On renvoie l'adresse du résultat du polynome temporaire élevé à la puissance n/2.
+    }
+    else
+    {
+        Polynomial_dev *result, *before; // On crée deux pointeur pour le résultat et pour libérer la mémoire d'un résultat temporaire.
+        result = multiplyPolynomials(polynomial_dev, polynomial_dev); // le résultat vautle polynome initiale au carré.
+        POW_POLYNOMIAL(result, (n-1)/2); // Le résultat prend la valeur de lui-même élevé au la puissance (n-1)/2.
+        MULTIPLY_POLYNOMIALS(result, polynomial_dev); // On multiplie le résultat par le polynome initiale.
+
+        return result; // On renvoie l'adresse du résultat.
+    }
+}

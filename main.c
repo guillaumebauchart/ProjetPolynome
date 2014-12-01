@@ -11,38 +11,39 @@
 
 int main()
 {
-    //launch();
+    launch();
 
 
-
+/*
     //while (1)
     //{
-        Polynomial_dev *polynomial_dev1 = generateRandomPolynomialDev(0, 10, 1, -5.0, 5.0);
-        displayPolynomialDev(polynomial_dev1);
+        Polynomial_dev *polynomial_dev1 = generateRandomPolynomialDev(0, 1000, 1, -50.0, 50.0);
+        //displayPolynomialDev(polynomial_dev1);
 
-        //Polynomial_dev *polynomial_dev2 = generateRandomPolynomialDev(0, 10, 1, -5.0, 5.0);
+        Polynomial_dev *polynomial_dev2 = generateRandomPolynomialDev(0, 1000, 1, -50.0, 50.0);
         //displayPolynomialDev(polynomial_dev2);
 
         clock_t start = clock();
-        Polynomial_dev *result1 = integratePolynomial(polynomial_dev1);
+        //Polynomial_dev *result1 = powPolynomial(polynomial_dev1, 100);
+        Polynomial_dev *result1 = multiplyPolynomials(polynomial_dev1, polynomial_dev2);
         double elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
-        displayPolynomialDev(result1);
+        //displayPolynomialDev(result1);
         printf("result1 :\n"); printf("L'operation s'est effectue en %2.40lfs\n", elapsed);
 
         start = clock();
-        Polynomial_dev *result2 = derivePolynomial(polynomial_dev1);
+        Polynomial_dev *result2 = multiplyRawPolynomials(polynomial_dev1, polynomial_dev2);
         elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
-        displayPolynomialDev(result2);
+        //displayPolynomialDev(result2);
         printf("result2 :\n"); printf("L'operation s'est effectue en %2.40lfs\n", elapsed);
 
 
         removePolynomialDev(polynomial_dev1);
-        //removePolynomialDev(polynomial_dev2);
+        removePolynomialDev(polynomial_dev2);
         removePolynomialDev(result1);
         removePolynomialDev(result2);
     //}
 
-
+*/
 
     /*
     Polynomial_dev polynomial_dev = generateRandomPolynomialDev(2, 6, 1);

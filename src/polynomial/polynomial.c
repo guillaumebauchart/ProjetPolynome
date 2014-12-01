@@ -38,7 +38,10 @@ void displayPolynomialDev (Polynomial_dev *polynomial_dev)
     while (tmp != NULL) // Tant que l'on n'est pas arrivé à la fin du polynome développé.
     {
         displayMonomial(tmp); // On affiche le monome courant.
-        printf(" + \n");
+        if (tmp->next != NULL)
+        {
+            printf(" + ");
+        }
         tmp = tmp->next; // On fait avancer la variable de parcours.
     }
     printf("\n\n");
@@ -96,7 +99,7 @@ Polynomial_dev *createPolynomialDev ()
 
 
 // Génère un polynome développé aléatoirement et en retourne l'adresse.
-Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density, double minGap, double maxGap)
+Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double density, double minCoef, double maxCoef)
 {
     /* Génère un polnyome developpé aléatoire avec des monomes dont l'exposant est compris
      * entre minDeg et maxDeg. Sachant que la densité est un nombre en 0 et 1 qui
@@ -114,7 +117,7 @@ Polynomial_dev *generateRandomPolynomialDev (int minDeg, int maxDeg, double dens
 
         if (density >= chance) // Si la densité est supérieur ou égale à la chance, on créer le monome, sinon non.
         {
-            Monomial *monomial = generateRandomMonomial(i, minGap, maxGap);
+            Monomial *monomial = generateRandomMonomial(i, minCoef, maxCoef);
             insertMonomialAtEndPolynomial(polynomial_dev, monomial);
         }
     }

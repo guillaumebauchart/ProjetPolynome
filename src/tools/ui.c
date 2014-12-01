@@ -13,19 +13,7 @@ void launch ()
     {
         case 1 :    uiGenerate(); break;
 
-        case 7 :{    Complex temp;
-                    double x, y;
-                    int n;
-                    ASK_NUMBER("x = ", "%lf", &x);
-                    ASK_NUMBER("y = ", "%lf", &y);
-                    ASK_NUMBER("n = ", "%d", &n);
-                    temp.x = x; temp.y = y;
-                    temp = complexPow(&temp, n);
-                    printf ("result ");
-                    complexDisplay(&temp);
-                    PRINT_SPACE();
-                    break;}
-
+        case 15 :   exit(EXIT_SUCCESS);
 
         default :   printf("Veuillez choisir un nombre correspondant à une foncitonnalite propose ci-dessus"); break;
     }
@@ -46,6 +34,8 @@ void displayMenu ()
 	printf("3) Soustraire deux polynomes.\n");
     printf("4) Multiplier naivement deux polynomes.\n");
 	printf("5) Multiplier deux polynomes.\n");
+    printf("6) Integrer un polynome.\n");
+    printf("7) Deriver un polynome.\n");
 
     printf("15) Quitter\n");
     printf("\n\n");
@@ -55,8 +45,8 @@ void displayMenu ()
 
 void uiGenerate ()
 {
-    int minExp, maxExp;
-    double minDeg, maxDeg, density;
+    int minDeg, maxDeg;
+    double minCoef, maxCoef, density;
 
     CLEAR();
     printf("Pour generer un polynome, il faut renseigner :");
@@ -66,15 +56,17 @@ void uiGenerate ()
     PRINT_SPACE();
 
 
-    ASK_NUMBER("Choisissez le petit exposant du polynome : ", "%d", &minExp);
-    ASK_NUMBER("Choisissez le grand exposant du polynome : ", "%d", &maxExp);
-    ASK_NUMBER("Choisissez la petite borne de generation: ", "%lf", &minDeg);
-    ASK_NUMBER("Choisissez la grande borne de generation: ", "%lf", &maxDeg);
+    ASK_NUMBER("Choisissez le petit exposant du polynome : ", "%d", &minDeg);
+    ASK_NUMBER("Choisissez le grand exposant du polynome : ", "%d", &maxDeg);
+    ASK_NUMBER("Choisissez la petite borne de generation: ", "%lf", &minCoef);
+    ASK_NUMBER("Choisissez la grande borne de generation: ", "%lf", &maxCoef);
     ASK_NUMBER("Choisissez la densite de generation: ", "%lf", &density);
 
-    //printf("minExp = %d maxExp = %d minDeg = %lf maxDeg = %lf density = %lf", minExp, maxExp, minDeg, maxDeg, density);
+    //printf("minCoef = %d maxCoef = %d minDeg = %lf maxDeg = %lf density = %lf", minCoef, maxCoef, minDeg, maxDeg, density);
 
-    Polynomial_dev *generated = generateRandomPolynomialDev(minDeg, maxDeg, density, minExp, maxExp);
+    Polynomial_dev *generated = generateRandomPolynomialDev(minDeg, maxDeg, density, minCoef, maxCoef);
+    printf("\nLe polynome genere vaut :\n\n");
+    displayPolynomialDev(generated);
 
 
 }

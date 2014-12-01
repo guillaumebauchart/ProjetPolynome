@@ -6,12 +6,13 @@
 	<stdio.h>
 	<stdlib.h>
 
-1414763627 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
+1417285796 source:d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\main.c
 	<stdio.h>
 	<stdlib.h>
 	"src/tools/complex.h"
 	"src/tools/monomial.h"
 	"src/tools/utility.h"
+	"src/tools/ui.h"
 	"src/polynomial/polynomial.h"
 	"src/polynomial/operations.h"
 
@@ -38,11 +39,11 @@
 	"operations.h"
 	"polynomial.h"
 
-1414763627 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.h
+1417343449 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\operations.h
 	"../tools/utility.h"
 	"polynomial.h"
 
-1414762913 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.h
+1417191411 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\polynomial\polynomial.h
 	<time.h>
 	"../tools/monomial.h"
 
@@ -56,14 +57,14 @@
 	"polynomial.h"
 	"../tools/utility.h"
 
-1414702043 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\complex.h
+1417191411 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\complex.h
 	<stdio.h>
 	<stdlib.h>
 
-1414762876 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\monomial.h
+1417191411 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\monomial.h
 	"complex.h"
 
-1414763007 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\utility.h
+1417191411 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\utility.h
 	"../polynomial/polynomial.h"
 	"monomial.h"
 
@@ -268,4 +269,10 @@
 
 1417164537 source:c:\users\20130203\downloads\projetpolynome\src\tools\utility.c
 	"utility.h"
+
+1417191411 d:\google drive\efrei\2014 - 2015 l2 efrei\s01\sdd\projet\projetpolynome\src\tools\ui.h
+	<time.h>
+	"utility.h"
+	<Windows.h>
+	<unistd.h>
 
