@@ -276,3 +276,61 @@
 	<Windows.h>
 	<unistd.h>
 
+1417508619 source:c:\users\20130203\documents\github\projetpolynome\src\polynomial\operations.c
+	"operations.h"
+	"polynomial.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\polynomial\operations.h
+	"../tools/utility.h"
+	"polynomial.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\tools\utility.h
+	"../polynomial/polynomial.h"
+	"monomial.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\polynomial\polynomial.h
+	<time.h>
+	"../tools/monomial.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\tools\monomial.h
+	"complex.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\tools\complex.h
+	<stdio.h>
+	<stdlib.h>
+
+1417506340 source:c:\users\20130203\documents\github\projetpolynome\src\polynomial\polynomial.c
+	"polynomial.h"
+	"../tools/utility.h"
+
+1417508655 source:c:\users\20130203\documents\github\projetpolynome\src\tools\complex.c
+	"complex.h"
+	"../tools/ui.h"
+
+1417506340 c:\users\20130203\documents\github\projetpolynome\src\tools\ui.h
+	<time.h>
+	"utility.h"
+	<Windows.h>
+	<unistd.h>
+
+1417506340 source:c:\users\20130203\documents\github\projetpolynome\src\tools\monomial.c
+	"monomial.h"
+	"../tools/utility.h"
+	"../tools/ui.h"
+
+1417506340 source:c:\users\20130203\documents\github\projetpolynome\src\tools\utility.c
+	"utility.h"
+
+1417508877 source:c:\users\20130203\documents\github\projetpolynome\main.c
+	<stdio.h>
+	<stdlib.h>
+	"src/tools/complex.h"
+	"src/tools/monomial.h"
+	"src/tools/utility.h"
+	"src/tools/ui.h"
+	"src/polynomial/polynomial.h"
+	"src/polynomial/operations.h"
+
+1417506340 source:c:\users\20130203\documents\github\projetpolynome\src\tools\ui.c
+	"ui.h"
+

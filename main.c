@@ -13,50 +13,82 @@ int main()
 {
     launch();
 
-
-/*
     //while (1)
     //{
-        Polynomial_dev *polynomial_dev1 = generateRandomPolynomialDev(0, 1000, 1, -50.0, 50.0);
-        //displayPolynomialDev(polynomial_dev1);
+/*
+        Polynomial_dev *polynomial_dev1 = generateRandomPolynomialDev(0, 10, 1, -50.0, 50.0);
+        printf("polynomial 1 : \n\n");
+        displayPolynomialDev(polynomial_dev1);
 
-        Polynomial_dev *polynomial_dev2 = generateRandomPolynomialDev(0, 1000, 1, -50.0, 50.0);
-        //displayPolynomialDev(polynomial_dev2);
+        Polynomial_dev *polynomial_dev2 = generateRandomPolynomialDev(0, 10, 1, -50.0, 50.0);
+        printf("polynomial 2 : \n\n");
+        displayPolynomialDev(polynomial_dev2);
 
         clock_t start = clock();
-        //Polynomial_dev *result1 = powPolynomial(polynomial_dev1, 100);
-        Polynomial_dev *result1 = multiplyPolynomials(polynomial_dev1, polynomial_dev2);
+        Polynomial_dev *sum = addPolynomials(polynomial_dev1, polynomial_dev2);
         double elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
-        //displayPolynomialDev(result1);
-        printf("result1 :\n"); printf("L'operation s'est effectue en %2.40lfs\n", elapsed);
+        printf("\n\nsum :\n");
+        displayPolynomialDev(sum);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
 
         start = clock();
-        Polynomial_dev *result2 = multiplyRawPolynomials(polynomial_dev1, polynomial_dev2);
+        Polynomial_dev *subtraction = subtractPolynomials(polynomial_dev1, polynomial_dev2);
         elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
-        //displayPolynomialDev(result2);
-        printf("result2 :\n"); printf("L'operation s'est effectue en %2.40lfs\n", elapsed);
+        printf("\n\nsubtraction :\n");
+        displayPolynomialDev(subtraction);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
 
+        start = clock();
+        Polynomial_dev *rawMultiply = multiplyRawPolynomials(polynomial_dev1, polynomial_dev2);
+        elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
+        printf("\n\nrawMultiply :\n");
+        displayPolynomialDev(rawMultiply);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
+
+        start = clock();
+        Polynomial_dev *multiplykaratsuba = multiplyPolynomials(polynomial_dev1, polynomial_dev2);
+        elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
+        printf("\n\nmultiply karatsuba:\n");
+        displayPolynomialDev(multiplykaratsuba);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
+
+        start = clock();
+        Polynomial_dev *derivated = derivePolynomial(polynomial_dev1);
+        elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
+        printf("\n\nderivated :\n");
+        displayPolynomialDev(derivated);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
+
+        start = clock();
+        Polynomial_dev *integrated = integratePolynomial(polynomial_dev1);
+        elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
+        printf("\n\nintegrated :\n");
+        displayPolynomialDev(integrated);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed);
+
+        start = clock();
+        Polynomial_dev *pow = powPolynomial(polynomial_dev1, 50);
+        elapsed = (double)(clock() - start)/CLOCKS_PER_SEC;
+        printf("\n\npow :\n"); fflush(NULL);
+        displayPolynomialDev(pow); fflush(NULL);
+        printf("L'operation s'est effectue en %2.4lfs\n", elapsed); fflush(NULL);
 
         removePolynomialDev(polynomial_dev1);
         removePolynomialDev(polynomial_dev2);
-        removePolynomialDev(result1);
-        removePolynomialDev(result2);
-    //}
+        removePolynomialDev(sum);
+        removePolynomialDev(rawMultiply);
+        removePolynomialDev(multiplykaratsuba);
+        removePolynomialDev(derivated);
+        removePolynomialDev(pow);
 
+        Complex z;
+        complexSet(&z, 2, 3);
+        z = complexPow(&z, 150);
+        printf("\n\ncomplex = ");
+        complexDisplay(&z);
 */
 
-    /*
-    Polynomial_dev polynomial_dev = generateRandomPolynomialDev(2, 6, 1);
-    displayPolynomialDev(&polynomial_dev);
-
-    while(1)
-    {
-        Monomial monomial;
-        getMonomialFromKeyboard (&monomial);
-        polynomial_dev = multiplyPolynomialByMonomial(&polynomial_dev, &monomial);
-        displayPolynomialDev(&polynomial_dev);
-    }
-    */
+    //}
 
     return 0;
 }

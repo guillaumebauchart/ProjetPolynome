@@ -36,6 +36,7 @@ void displayMenu ()
 	printf("5) Multiplier deux polynomes.\n");
     printf("6) Integrer un polynome.\n");
     printf("7) Deriver un polynome.\n");
+    printf("8) Elever un polynome a la puissance n.\n");
 
     printf("15) Quitter\n");
     printf("\n\n");
@@ -58,9 +59,9 @@ void uiGenerate ()
 
     ASK_NUMBER("Choisissez le petit exposant du polynome : ", "%d", &minDeg);
     ASK_NUMBER("Choisissez le grand exposant du polynome : ", "%d", &maxDeg);
-    ASK_NUMBER("Choisissez la petite borne de generation: ", "%lf", &minCoef);
-    ASK_NUMBER("Choisissez la grande borne de generation: ", "%lf", &maxCoef);
-    ASK_NUMBER("Choisissez la densite de generation: ", "%lf", &density);
+    ASK_NUMBER("Choisissez la petite borne de generation : ", "%lf", &minCoef);
+    ASK_NUMBER("Choisissez la grande borne de generation : ", "%lf", &maxCoef);
+    ASK_NUMBER("Choisissez la densite de generation : ", "%lf", &density);
 
     //printf("minCoef = %d maxCoef = %d minDeg = %lf maxDeg = %lf density = %lf", minCoef, maxCoef, minDeg, maxDeg, density);
 

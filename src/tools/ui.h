@@ -16,7 +16,7 @@
 
 #define PRINT_SPACE(); printf("\n\n");
 
-#define ASK_NUMBER(txt, format, value);              \
+#define ASK_NUMBER(txt, format, value);             \
     {                                               \
         int returned;                               \
         do                                          \
